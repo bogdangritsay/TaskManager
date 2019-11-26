@@ -15,11 +15,15 @@ public class Main {
 		taskArrayList.add(task3);
 		taskArrayList.add(task4);
 
+
+/*
 		System.out.println(taskArrayList);
 
 		taskArrayList.remove(task2);
 		System.out.println(taskArrayList);
 
-		System.out.println(taskArrayList.size());
+		System.out.println(taskArrayList.size());*/
+
+
 	}
 }

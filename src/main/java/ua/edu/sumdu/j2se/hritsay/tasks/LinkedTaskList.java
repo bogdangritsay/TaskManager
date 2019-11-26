@@ -1,9 +1,11 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
-public class LinkedTaskList {
+public class LinkedTaskList extends AbstractTaskList {
     private int size;
     private Node first;
     private Node last;
+
+
 
     public void add(Task task) {
         if (size == 0) {
@@ -99,7 +101,7 @@ public class LinkedTaskList {
         return last;
     }
 
-    public LinkedTaskList incoming(int from, int to) {
+    /*public LinkedTaskList incoming(int from, int to) {
         LinkedTaskList tmpLinkedTaskList = new LinkedTaskList();
         for (Node i = first; i != null; i = i.next) {
             if ((i.item.isRepeated())) {
@@ -114,7 +116,7 @@ public class LinkedTaskList {
             }
         }
         return tmpLinkedTaskList;
-    }
+    }*/
 
     private Node getNode(int index) {
         if (size > 0 && index < size) {
@@ -132,22 +134,6 @@ public class LinkedTaskList {
         }
     }
 
-    class Node {
-        Task item;
-        Node next;
-        Node prev;
-
-        public Node(Node prev, Task item, Node next) {
-            this.item = item;
-            this.next = next;
-            this.prev = prev;
-        }
-
-        @Override
-        public String toString() {
-            return "Node{item=" + item + "}";
-        }
-    }
 
 
 }

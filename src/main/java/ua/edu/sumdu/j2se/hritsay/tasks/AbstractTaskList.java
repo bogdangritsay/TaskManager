@@ -1,0 +1,39 @@
+package ua.edu.sumdu.j2se.hritsay.tasks;
+
+public abstract class AbstractTaskList {
+
+    public abstract boolean remove(Task task);
+
+    public abstract void add(Task task);
+
+    public abstract int size();
+
+    public abstract Task getTask(int index) throws IndexOutOfBoundsException;
+
+    public AbstractTaskList incoming(int from, int to) {
+        AbstractTaskList tmpAbstractTaskList;
+        String type = this.getClass().toString();
+        if (type.endsWith("ArrayTaskList")) {
+            tmpAbstractTaskList = TaskListFactory.createTaskList(ListTypes.types.ARRAY);
+        } else {
+            tmpAbstractTaskList = TaskListFactory.createTaskList(ListTypes.types.LINKED);
+        }
+        int i = 0;
+        while (this.size() > i) {
+            if (this.getTask(i) != null) {
+                if ((getTask(i).isRepeated())) {
+                    if ((getTask(i).nextTimeAfter(from) != -1)
+                            && (getTask(i).nextTimeAfter(from) < to)) {
+                        tmpAbstractTaskList.add(getTask(i));
+                    } else {
+                        if ((getTask(i).getTime() > from) && (getTask(i).getTime() < to)) {
+                            tmpAbstractTaskList.add(getTask(i));
+                        }
+                    }
+                }
+            }
+            i++;
+        }
+        return tmpAbstractTaskList;
+    }
+}

@@ -3,7 +3,7 @@ import java.util.Objects;
 import java.util.Arrays;
 
 
-public class ArrayTaskList {
+public class ArrayTaskList extends AbstractTaskList {
     private int size;
     private int capacity;
     private Task[]taskArray = new Task[capacity];
@@ -46,23 +46,6 @@ public class ArrayTaskList {
         } else {
                 throw new IndexOutOfBoundsException("Index is incorrect!");
         }
-    }
-
-    public ArrayTaskList incoming(int from, int to) {
-        ArrayTaskList tmpArrayList = new ArrayTaskList();
-        for (Task i : taskArray) {
-            if ((i.isRepeated())) {
-                if ((i.nextTimeAfter(from) != -1)
-                        && (i.nextTimeAfter(from) < to)) {
-                    tmpArrayList.add(i);
-            } else {
-                    if ((i.getTime() > from) && (i.getTime() < to)) {
-                        tmpArrayList.add(i);
-                    }
-                }
-            }
-        }
-        return tmpArrayList;
     }
 
     @Override

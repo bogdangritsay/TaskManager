@@ -1,9 +1,10 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 import java.util.Objects;
 import java.util.Arrays;
+import java.lang.String;
 
 
-public class ArrayTaskList extends AbstractTaskList {
+public class ArrayTaskList extends AbstractTaskList implements Cloneable {
     private int size;
     private int capacity;
     private Task[]taskArray = new Task[capacity];
@@ -63,5 +64,21 @@ public class ArrayTaskList extends AbstractTaskList {
         int result = Objects.hash(size, capacity);
         result = 31 * result + Arrays.hashCode(taskArray);
         return result;
+    }
+
+    @Override
+    public ArrayTaskList clone() throws CloneNotSupportedException {
+        ArrayTaskList arrayTaskList = (ArrayTaskList)super.clone();
+        arrayTaskList.taskArray = taskArray.clone();
+        return arrayTaskList;
+    }
+
+    @Override
+    public String toString() {
+        return "ArrayTaskList " +
+                "size = " + size +
+                ", capacity = " + capacity +
+                ", taskArray = \n" + Arrays.toString(taskArray);
+
     }
 }

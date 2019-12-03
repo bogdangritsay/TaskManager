@@ -1,10 +1,11 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
-public class LinkedTaskList extends AbstractTaskList {
+import java.util.Objects;
+
+public class LinkedTaskList extends AbstractTaskList  implements Cloneable {
     private int size;
     private Node first;
     private Node last;
-
 
 
     public void add(Task task) {
@@ -48,7 +49,7 @@ public class LinkedTaskList extends AbstractTaskList {
                 }
             }
         } else {
-            for(Node x = first; x != null; x = x.next) {
+            for (Node x = first; x != null; x = x.next) {
                 if (task.equals(x.item)) {
                     unlink(x);
                     return true;
@@ -125,7 +126,7 @@ public class LinkedTaskList extends AbstractTaskList {
                 x = x.next;
             }
             return x;
-        } else if(size == 0) {
+        } else if (size == 0) {
             System.out.println("List is empty");
             return null;
         } else {
@@ -135,5 +136,45 @@ public class LinkedTaskList extends AbstractTaskList {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LinkedTaskList)) return false;
+        if (size != ((LinkedTaskList) o).size) return false;
+        if (hashCode() != o.hashCode()) return false;
+        for (int i = 0; i < size; i++) {
+            if (!(getTask(i).equals(((LinkedTaskList) o).getTask(i)))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    @Override
+    public int hashCode() {
+        int hashCode = 1;
+        for (Node i = first; i != last; i = i.next) {
+            hashCode = 31 * hashCode + (i.item == null ? 0 : i.item.hashCode());
+        }
+        return hashCode;
+    }
+
+    @Override
+    public LinkedTaskList clone() throws CloneNotSupportedException {
+        LinkedTaskList linkedTaskList = (LinkedTaskList) super.clone();
+        linkedTaskList.first = first.clone();
+        linkedTaskList.last = last.clone();
+        return linkedTaskList;
+    }
+
+    @Override
+    public String toString() {
+        String tasks = "LinkedTaskList " +
+                "size = " + size +
+                ", linkedTaskList = \n";
+        for (int i = 0; i < size; i++) {
+            tasks.concat(getTask(i).toString());
+        }
+        return tasks.toString();
+    }
 }

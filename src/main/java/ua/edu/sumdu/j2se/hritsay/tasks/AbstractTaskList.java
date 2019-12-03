@@ -10,7 +10,7 @@ public abstract class AbstractTaskList {
 
     public abstract Task getTask(int index) throws IndexOutOfBoundsException;
 
-    public AbstractTaskList incoming(int from, int to) {
+    public  AbstractTaskList incoming(int from, int to) {
         AbstractTaskList tmpAbstractTaskList;
         String type = this.getClass().toString();
         if (type.endsWith("ArrayTaskList")) {
@@ -21,13 +21,14 @@ public abstract class AbstractTaskList {
         int i = 0;
         while (this.size() > i) {
             if (this.getTask(i) != null) {
-                if ((getTask(i).isRepeated())) {
-                    if ((getTask(i).nextTimeAfter(from) != -1)
-                            && (getTask(i).nextTimeAfter(from) < to)) {
-                        tmpAbstractTaskList.add(getTask(i));
+                if ((this.getTask(i).isRepeated())) {
+                    if ((this.getTask(i).nextTimeAfter(from) != -1)
+
+                            && (this.getTask(i).nextTimeAfter(from) < to)) {
+                        tmpAbstractTaskList.add(this.getTask(i));
                     } else {
-                        if ((getTask(i).getTime() > from) && (getTask(i).getTime() < to)) {
-                            tmpAbstractTaskList.add(getTask(i));
+                        if ((this.getTask(i).getTime() > from) && (this.getTask(i).getTime() < to)) {
+                            tmpAbstractTaskList.add(this.getTask(i));
                         }
                     }
                 }
@@ -36,4 +37,6 @@ public abstract class AbstractTaskList {
         }
         return tmpAbstractTaskList;
     }
+
+
 }

@@ -2,7 +2,7 @@ package ua.edu.sumdu.j2se.hritsay.tasks;
 
 import java.util.Objects;
 
-public class Task {
+public class Task implements Cloneable {
     private String title;
     private int time;
     private int start;
@@ -207,7 +207,24 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, time, start, end, interval, isActive);
+        return 33*Objects.hash(title, time, start, end, interval, isActive);
+    }
+
+    @Override
+    public Task clone() throws CloneNotSupportedException {
+        return (Task)super.clone();
+    }
+
+    @Override
+    public String toString() {
+        return " Task: " +
+                "title = '" + title + '\'' +
+                ", time = " + time +
+                ", start = " + start +
+                ", end = " + end +
+                ", interval = " + interval +
+                ", isActive = " + isActive +
+                ".\n";
     }
 }
 

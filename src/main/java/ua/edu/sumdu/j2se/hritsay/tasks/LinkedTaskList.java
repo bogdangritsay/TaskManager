@@ -1,12 +1,13 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class LinkedTaskList extends AbstractTaskList  implements Cloneable {
+public class LinkedTaskList extends AbstractTaskList implements Cloneable, Iterable<Task>  {
     private int size;
     private Node first;
     private Node last;
-
 
     public void add(Task task) {
         if (size == 0) {
@@ -102,22 +103,6 @@ public class LinkedTaskList extends AbstractTaskList  implements Cloneable {
         return last;
     }
 
-    /*public LinkedTaskList incoming(int from, int to) {
-        LinkedTaskList tmpLinkedTaskList = new LinkedTaskList();
-        for (Node i = first; i != null; i = i.next) {
-            if ((i.item.isRepeated())) {
-                if ((i.item.nextTimeAfter(from) != -1)
-                        && (i.item.nextTimeAfter(from) < to)) {
-                    tmpLinkedTaskList.add(i.item);
-                } else {
-                    if ((i.item.getTime() > from) && (i.item.getTime() < to)) {
-                        tmpLinkedTaskList.add(i.item);
-                    }
-                }
-            }
-        }
-        return tmpLinkedTaskList;
-    }*/
 
     private Node getNode(int index) {
         if (size > 0 && index < size) {
@@ -161,7 +146,7 @@ public class LinkedTaskList extends AbstractTaskList  implements Cloneable {
 
     @Override
     public LinkedTaskList clone() throws CloneNotSupportedException {
-        LinkedTaskList linkedTaskList = (LinkedTaskList) super.clone();
+        LinkedTaskList linkedTaskList = (LinkedTaskList)super.clone();
         linkedTaskList.first = first.clone();
         linkedTaskList.last = last.clone();
         return linkedTaskList;
@@ -169,12 +154,48 @@ public class LinkedTaskList extends AbstractTaskList  implements Cloneable {
 
     @Override
     public String toString() {
-        String tasks = "LinkedTaskList " +
-                "size = " + size +
-                ", linkedTaskList = \n";
+        String tasks = " ";
         for (int i = 0; i < size; i++) {
-            tasks.concat(getTask(i).toString());
+            tasks = tasks.concat(getTask(i).toString());
         }
-        return tasks.toString();
+        return "LinkedTaskList " +
+                "size = " + size +
+                ":  \n" + tasks;
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return new Iterator<Task>() {
+
+            Node current = first;
+            int countNext;
+
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public Task next() throws NoSuchElementException {
+                if (hasNext()) {
+                    Task data = current.item;
+                    current = current.next;
+                    countNext++;
+                    return data;
+                } else {
+                    countNext++;
+                    throw new NoSuchElementException("No such element.");
+                }
+            }
+
+            @Override
+            public void remove() throws IllegalStateException {
+                if(countNext == 0) {
+                    throw new IllegalStateException();
+                } else {
+                    LinkedTaskList.this.remove(this.current.prev.item);
+                }
+            }
+        };
     }
 }

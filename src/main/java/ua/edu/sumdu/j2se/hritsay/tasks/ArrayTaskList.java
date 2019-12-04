@@ -1,10 +1,12 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Arrays;
 import java.lang.String;
 
 
-public class ArrayTaskList extends AbstractTaskList implements Cloneable {
+public class ArrayTaskList extends AbstractTaskList implements Cloneable, Iterable<Task> {
     private int size;
     private int capacity;
     private Task[]taskArray = new Task[capacity];
@@ -21,6 +23,7 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
                     return true;
                 }
             }
+
         }
         return false;
     }
@@ -79,6 +82,41 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
                 "size = " + size +
                 ", capacity = " + capacity +
                 ", taskArray = \n" + Arrays.toString(taskArray);
+    }
 
+    @Override
+    public Iterator<Task> iterator() {
+        Iterator<Task> it = new Iterator<Task>() {
+            private int count = size;
+            private int currentIndex;
+            private  int countNext;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < size && taskArray[currentIndex] != null;
+            }
+
+            @Override
+            public Task next() {
+                if (currentIndex < count) {
+                    countNext++;
+                    return taskArray[currentIndex++];
+                } else {
+                    countNext++;
+                    throw new NoSuchElementException("No such element.");
+                }
+            }
+
+            @Override
+            public void remove() {
+                if(countNext == 0){
+                    throw new IllegalStateException();
+                } else {
+                    ArrayTaskList.this.remove(taskArray[--currentIndex]);
+                    count--;
+                }
+            }
+        };
+        return it;
     }
 }

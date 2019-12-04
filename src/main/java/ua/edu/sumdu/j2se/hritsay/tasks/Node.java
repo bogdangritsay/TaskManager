@@ -24,4 +24,9 @@ public class Node implements Cloneable {
             node.next = next.clone();*/
             return node;
     }
+
+    public boolean hasNext() {
+            if(next != null) return true;
+            return false;
+    }
 }

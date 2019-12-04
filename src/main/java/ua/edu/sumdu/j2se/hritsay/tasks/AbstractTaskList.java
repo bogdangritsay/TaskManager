@@ -1,6 +1,6 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
-public abstract class AbstractTaskList {
+public abstract class AbstractTaskList implements Iterable<Task>{
 
     public abstract boolean remove(Task task);
 

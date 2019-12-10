@@ -1,6 +1,8 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -15,15 +17,24 @@ public class Main {
 		taskArrayList.add(task2);
 		taskArrayList.add(task3);
 		taskArrayList.add(task4);
-		System.out.println(taskArrayList);*/
+		System.out.println(taskArrayList);
 
 		System.out.println("Тестирование клонирование на двусвязном списке. ");
-
 		LinkedTaskList linkedTaskList = new LinkedTaskList();
 		linkedTaskList.add(task1);
 		linkedTaskList.add(task2);
 		linkedTaskList.add(task3);
 		linkedTaskList.add(task4);
+
+
+		Stream myStr = linkedTaskList.getStream();
+
+		if(myStr == null) System.out.println("There is null 2");
+        System.out.println(myStr);
+
+        System.out.println(myStr.collect(Collectors.toList()));
+
+		/*
 		System.out.println("1-ый до клонирования.");
 		System.out.println(linkedTaskList);
 		System.out.println("Клонирование 1-го во 2-ой ... ");
@@ -35,6 +46,6 @@ public class Main {
 		linkedTaskList2.getTask(0).setTime(33);
 		System.out.println("Проверяем оба:");
 		System.out.println("Просмотр \n первый: \n"
-				+ linkedTaskList + "\n  второй \n" + linkedTaskList2);
+				+ linkedTaskList + "\n  второй \n" + linkedTaskList2);*/
 	}
 }

@@ -1,8 +1,10 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.stream.Stream;
 
 public class LinkedTaskList extends AbstractTaskList implements Cloneable, Iterable<Task>  {
     private int size;
@@ -95,12 +97,13 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
         return size;
     }
 
-    public Node getFirst() {
-        return first;
-    }
-
-    public Node getLast() {
-        return last;
+    @Override
+    public Stream<Task> getStream() {
+        ArrayTaskList tmp = new ArrayTaskList();
+        for (int i = 0;  i < size; i++) {
+            tmp.add(getTask(i));
+        }
+        return tmp.getStream();
     }
 
 
@@ -119,7 +122,6 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
             return null;
         }
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -197,5 +199,21 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
                 }
             }
         };
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setFirst(Node first) {
+        this.first = first;
+    }
+
+    public void setLast(Node last) {
+        this.last = last;
     }
 }

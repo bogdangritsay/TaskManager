@@ -2,7 +2,7 @@ package ua.edu.sumdu.j2se.hritsay.tasks;
 
 import java.util.ArrayList;
 
-public class TaskListFactory {
+public class TaskListFactory<Task> {
     public static AbstractTaskList createTaskList(ListTypes.types type) {
         switch (type) {
             case ARRAY:

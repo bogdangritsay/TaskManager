@@ -4,9 +4,10 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Arrays;
 import java.lang.String;
+import java.util.stream.Stream;
 
 
-public class ArrayTaskList extends AbstractTaskList implements Cloneable, Iterable<Task> {
+public class ArrayTaskList extends AbstractTaskList  implements Cloneable, Iterable<Task> {
     private int size;
     private int capacity;
     private Task[]taskArray = new Task[capacity];
@@ -44,7 +45,7 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable, Iterab
         return size;
     }
 
-	public Task getTask(int index) throws IndexOutOfBoundsException{
+    public Task getTask(int index) throws IndexOutOfBoundsException{
         if (index < size && index >= 0 && taskArray[index] != null) {
             return taskArray[index];
         } else {
@@ -119,4 +120,10 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable, Iterab
         };
         return it;
     }
+
+    @Override
+    public Stream<Task> getStream() {
+        return Stream.of(this.taskArray);
+    }
+
 }

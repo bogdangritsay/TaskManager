@@ -161,9 +161,8 @@ public class Task implements Cloneable {
      * return -1 If current is longer than the end time
      * return start If current < start
      * return -1 if current < 0
-     * Дописать !!!!!!!
      */
-        public final int nextTimeAfter(final int current) {
+    public final int nextTimeAfter(final int current) {
         if (!isActive()) {
             return -1;
         } else if (!isRepeated()) {
@@ -207,7 +206,7 @@ public class Task implements Cloneable {
 
     @Override
     public int hashCode() {
-        return 33*Objects.hash(title, time, start, end, interval, isActive);
+        return 31*Objects.hash(title, time, start, end, interval, isActive);
     }
 
     @Override

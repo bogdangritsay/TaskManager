@@ -1,8 +1,7 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
-import java.util.Arrays;
+
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 

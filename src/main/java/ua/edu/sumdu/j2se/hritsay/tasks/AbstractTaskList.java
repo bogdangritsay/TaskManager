@@ -1,9 +1,7 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
+import java.time.LocalDateTime;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class AbstractTaskList implements Iterable<Task>{
@@ -18,7 +16,7 @@ public abstract class AbstractTaskList implements Iterable<Task>{
 
     public abstract Task getTask(int index) throws IndexOutOfBoundsException;
 
-    public  final AbstractTaskList incoming(int from, int to) {
+    public  final AbstractTaskList incoming(LocalDateTime from, LocalDateTime to) {
        AbstractTaskList tmpAbstractTaskList;
         String type = this.getClass().toString();
         if (type.endsWith("ArrayTaskList")) {
@@ -28,14 +26,11 @@ public abstract class AbstractTaskList implements Iterable<Task>{
         }
 
         this.getStream().filter(task -> task != null &&
-                    task.nextTimeAfter(from) != -1 && task.nextTimeAfter(from) < to).forEach(tmpAbstractTaskList::add);
+                    task.nextTimeAfter(from) != null && task.nextTimeAfter(from).isBefore(to)).forEach(tmpAbstractTaskList::add);
         return tmpAbstractTaskList;
     }
 
 
-    @Override
-    public Iterator<Task> iterator() {
-        return null;
-    }
+
 
 }

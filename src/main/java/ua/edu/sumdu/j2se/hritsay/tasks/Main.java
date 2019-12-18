@@ -7,10 +7,10 @@ import java.util.stream.Stream;
 public class Main {
 
 	public static void main(String[] args) throws CloneNotSupportedException {
-		Task task1 = new Task("Покушать", 45);
+		/*Task task1 = new Task("Покушать", 45);
 		Task task2 = new Task("Тренировка", 45);
 		Task task3 = new Task("Курсы", 56);
-		Task task4 = new Task("Выгулять собаку", 93);
+		Task task4 = new Task("Выгулять собаку", 93);*/
 
 		/*ArrayTaskList taskArrayList = new ArrayTaskList();
 		taskArrayList.add(task1);

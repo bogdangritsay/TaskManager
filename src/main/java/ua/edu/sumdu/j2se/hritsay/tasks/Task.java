@@ -1,9 +1,10 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Task implements Cloneable {
+public class Task implements Cloneable, Serializable {
     private String title;
     private LocalDateTime time;
     private LocalDateTime start;
@@ -259,7 +260,7 @@ public class Task implements Cloneable {
     }
 
     @Override
-    public Task clone() throws CloneNotSupportedException {
+    public Task clone() throws CloneNotSupportedException { //!!!ПЕРЕПИСАТЬ МЕТОД ДЛЯ LOCALDATETIME
         return (Task)super.clone();
     }
 

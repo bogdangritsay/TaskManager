@@ -24,7 +24,7 @@ public class Task implements Cloneable, Serializable {
             }
             this.title = title;
             this.time = time;
-            isActive = false;
+        isActive = false;
 
     }
 

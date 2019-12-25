@@ -1,8 +1,8 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
 
 
 import java.io.*;
@@ -78,7 +78,7 @@ public class TaskIO {
 
     public static void writeBinary(AbstractTaskList tasks, File file) {
         try {
-            TaskIO.read(tasks, new FileInputStream(file));
+            TaskIO.write(tasks, new FileOutputStream(file));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,27 +96,30 @@ public class TaskIO {
 
     public static void write(AbstractTaskList tasks, Writer out) {
         //записує задачі зі списку у потік в форматі JSON
-        try {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        out.write(gson.toJson(tasks));
+        try(Writer outW = out) {
+            ArrayTaskList list = new ArrayTaskList();
+            for(Task task : tasks) {
+                list.add(task);
+            }
+        Gson gson = new Gson();
+        outW.write(gson.toJson(list, ArrayTaskList.class));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
     public static void read(AbstractTaskList tasks, Reader in) {
-        Type type;
-        Gson gsonIn = new Gson();
-        String jsonStr = gsonIn.toJson(in);
-        if (tasks.getClass().equals(LinkedTaskList.class)) {
-            type = new TypeToken<LinkedTaskList>() {
-            }.getType();
-        } else {
-            type = new TypeToken<ArrayTaskList>() {
-            }.getType();
+        //Reader inR = in;
+        AbstractTaskList list = new ArrayTaskList();
+        Type type = ArrayTaskList.class;
+        Gson gson = new Gson();
+        list = gson.fromJson(in, type);
+        for(Task task : list) {
+            tasks.add(task);
         }
-        // tasks = new Gson().fromJson(jsonStr, type);
     }
+
 
     public static void writeText(AbstractTaskList tasks, File file) {
         try (FileWriter fwr = new FileWriter(file)){
@@ -135,5 +138,6 @@ public class TaskIO {
     }
 
 
-
 }
+
+

@@ -1,17 +1,15 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
 
-	public static void main(String[] args) throws CloneNotSupportedException {
+	public static void main(String[] args) throws CloneNotSupportedException, IOException {
 		Task task1 = new Task("Покушать", 			LocalDateTime.of(2019, 2, 8, 13, 56, 59));
 		Task task2 = new Task("Тренировка", 		LocalDateTime.of(2021, 3, 19, 14, 23, 42));
 		Task task3 = new Task("Курсы", 			LocalDateTime.of(2020, 5, 4, 0, 48, 22));
@@ -25,11 +23,14 @@ public class Main {
 		System.out.println("GSON");
 
 		File jsonOut = new File("JsonOut.json");
-		TaskIO.writeText(taskArrayList, jsonOut);
+		//TaskIO.writeText(taskArrayList, jsonOut);
+
+		TaskIO.write(taskArrayList, new FileWriter("JsonOut.json"));
+		//TaskIO.read(actual, new FileReader("test.json"));
 
 
-		ArrayTaskList tasksArray2 = new ArrayTaskList();
-		//TaskIO.readText(tasksArray2, jsonOut);
+		AbstractTaskList tasksArray2 = new ArrayTaskList();
+		/*TaskIO.readText(tasksArray2, new FileWriter("JsonOut.json"));*/
 		System.out.println(tasksArray2);
 
 		 /*

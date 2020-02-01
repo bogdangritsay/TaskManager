@@ -3,19 +3,30 @@ package ua.edu.sumdu.j2se.hritsay.tasks;
 import ua.edu.sumdu.j2se.hritsay.tasks.model.*;
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
 
 public class ConsoleView implements View {
     private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     @Override
     public int removeTaskView(AbstractTaskList taskList) {
-        int res = -1;
+        int idRemTask = -1;
         try {
-            System.out.println("Enter id of deleting task: ");
-            res = Integer.parseInt(bufferedReader.readLine());
+            do {
+                System.out.println("Enter ID of deleting task: ");
+                idRemTask = Integer.parseInt(bufferedReader.readLine());
+                if (checkId(idRemTask, taskList)) {
+                    break;
+                } else {
+                    System.out.println("Task is not found!");
+                }
+            } while (true);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return res;
+        return idRemTask;
     }
 
     @Override
@@ -37,6 +48,7 @@ public class ConsoleView implements View {
                     System.out.println("A task with such an ID is already on the list.");
                 }
             } while (checkId(taskId, taskList));
+
             System.out.println("Enter a title for the task: ");
             title = bufferedReader.readLine();
             System.out.println("It is active task? (true or false): ");
@@ -50,26 +62,17 @@ public class ConsoleView implements View {
                 end = readDate();
                 System.out.println("Enter interval of repeats: ");
                 interval = Integer.parseInt(bufferedReader.readLine());
-                addTask = new Task(taskId, title, start, end, interval);
+                addTask = new Task(taskId, title, start, end, interval, isActive);
             } else {
                 System.out.println("Enter time: ");
                 time = readDate();
-                addTask = new Task(taskId, title, time);
+                addTask = new Task(taskId, title, time, isActive);
             }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
         return addTask;
-    }
-
-    public boolean checkId(int id, AbstractTaskList taskList) {
-        for (Task task : taskList) {
-            if (id == task.getTaskId()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -135,45 +138,48 @@ public class ConsoleView implements View {
         return null;
     }
 
+    private boolean checkId(int id, AbstractTaskList taskList) {
+        for (Task task : taskList) {
+            if (id == task.getTaskId()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
-    public int readId(AbstractTaskList taskList) {
+    public int readI(AbstractTaskList taskList) {
         try {
-            boolean isInList = false;
             int id;
-            int iRet = -1;
             do {
                 System.out.println("Enter an id for the task, please: \n");
                 id = Integer.parseInt(bufferedReader.readLine());
                 for (int i = 0; i < taskList.size(); i++) {
                     if(id == taskList.getTask(i).getTaskId()) {
-                        iRet = i;
-                        isInList = true;
-                        break;
+                           return i;
                     }
                 }
-
-            } while (!isInList);
-            return  iRet;
+                System.out.println("This task is not found!");
+            } while (true);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return -1;
     }
 
-
+    @Override
     public LocalDateTime readDate() {
         try {
             LocalDateTime date = LocalDateTime.now();
-            System.out.println("Enter year: \n");
+            System.out.println("Enter year: ");
             int year = Integer.parseInt(bufferedReader.readLine());
-            System.out.println("Enter month (1,2, 3 etc.): \n");
+            System.out.println("Enter month (1,2, 3 etc.): ");
             int month = Integer.parseInt(bufferedReader.readLine());
-            System.out.println("Enter day of month: \n");
+            System.out.println("Enter day of month: ");
             int day =  Integer.parseInt(bufferedReader.readLine());
-            System.out.println("Enter hours: \n");
+            System.out.println("Enter hours: ");
             int hours = Integer.parseInt(bufferedReader.readLine());
-            System.out.println("Enter minutes: \n");
+            System.out.println("Enter minutes: ");
             int minutes = Integer.parseInt(bufferedReader.readLine());
 
             date = LocalDateTime.of(year, month, day, hours, minutes, 0);
@@ -186,8 +192,27 @@ public class ConsoleView implements View {
 
     @Override
     public void calendarView(AbstractTaskList taskList) {
-        //System.out.println(Tasks.calendar(taskList, LocalDateTime.now(), LocalDateTime.of(2020, 6, 5, 20, 30, 0)).toString());
+        System.out.println("Calendar for 7 days: ");
+        System.out.println(prettyMap(Tasks.calendar(taskList, LocalDateTime.now(), LocalDateTime.now().plusDays(7))));
+    }
 
+    private String prettyMap(SortedMap<LocalDateTime, Set<Task>> map) {
+        StringBuilder sb = new StringBuilder();
+        Iterator<Map.Entry<LocalDateTime, Set<Task>>> iter = map.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<LocalDateTime, Set<Task>> entry = iter.next();
+            sb.append(entry.getKey());
+            sb.append('\t').append(':').append('\t');
+            Set<Task>  tasksForDate = entry.getValue();
+            for(Task task : tasksForDate) {
+                sb.append(task.getTitle());
+            }
+            if (iter.hasNext()) {
+                sb.append(',').append('\n');
+            }
+        }
+
+        return sb.toString();
     }
 
     @Override
@@ -234,10 +259,7 @@ public class ConsoleView implements View {
         System.out.println(noRepeatedTasks.toString());
     }
 
-    public void notFound() {
-        System.out.println("This task is not found!");
-    }
-
+    @Override
     public int confirmSaving() {
         try {
             System.out.println("Save changes?\n 1 - Yes\n 0 - No");

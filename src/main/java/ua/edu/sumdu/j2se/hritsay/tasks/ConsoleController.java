@@ -11,8 +11,12 @@ public class ConsoleController implements Controller {
     private AbstractTaskList taskList = new ArrayTaskList();
 
     @Override
-    public boolean canProcess(int act) {
-        return false;
+    public void start() {
+        try {
+            TaskIO.readText(taskList, new File("tasklist.json"));
+        } catch (NullPointerException e) {
+            System.out.println("New task list was been created;");
+        }
     }
 
     @Override
@@ -32,44 +36,23 @@ public class ConsoleController implements Controller {
 
     @Override
     public void removeTaskController() {
-
-        int taskId = 0;
-        boolean isIt = false;
-        int count = 0;
-        while (!isIt) {
-            taskId = view.removeTaskView(taskList);
-            for(Task task : taskList) {
-                if(task.getTaskId() == taskId)  {
-                    count = 1;
-                    isIt = true;
-                    break;
-                }
-            }
-            if(count == 0) {
-                view.notFound();
+        int idRemTask = view.removeTaskView(taskList);
+        for (Task task : taskList) {
+            if(idRemTask == task.getTaskId()) {
+                taskList.remove(task);
             }
         }
-        taskList.remove(taskId);
     }
 
     @Override
     public void editController() {
-     int i =  view.readId(taskList);
+     int i =  view.readI(taskList);
        taskList.replace(i, view.editView(taskList, i));
     }
-
 
     @Override
     public void calendarController() {
     view.calendarView(taskList);
-    }
-
-    public void start() {
-        try {
-            TaskIO.readText(taskList, new File("tasklist.json"));
-        } catch (NullPointerException e) {
-            System.out.println("New task list was been created;");
-        }
     }
 
     @Override

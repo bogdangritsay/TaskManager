@@ -19,14 +19,14 @@ public class Task implements Cloneable, Serializable {
      * @param title sets the title of a task.
      * @param time  sets the time of task execution.
      */
-    public Task(final int taskId, final String title, final LocalDateTime time) throws IllegalArgumentException {
+    public Task(final int taskId, final String title, final LocalDateTime time, final boolean isActive) throws IllegalArgumentException {
         if (time == null) {
             throw new IllegalArgumentException();
         }
         this.taskId = taskId;
         this.title = title;
         this.time = time;
-        isActive = false;
+        this.isActive = isActive;
 
     }
 
@@ -38,7 +38,7 @@ public class Task implements Cloneable, Serializable {
      * @param end      sets time for ending of task execution.
      * @param interval sets interval between task repeats.
      */
-    public Task(final int taskId, final String title, final LocalDateTime start, final LocalDateTime end, final int interval) throws IllegalArgumentException {
+    public Task(final int taskId, final String title, final LocalDateTime start, final LocalDateTime end, final int interval, final boolean isActive) throws IllegalArgumentException {
         if (start == null || end == null || interval == 0) {
             throw new IllegalArgumentException("Start or end == null. Or interval for repeatable is 0.");
         } else {
@@ -48,12 +48,11 @@ public class Task implements Cloneable, Serializable {
             this.end = end;
             this.interval = interval;
             this.time = start;
-            isActive = false;
+           this.isActive = isActive;
         }
     }
 
     public Task() {
-
         super();
     }
 

@@ -62,10 +62,10 @@ public class TaskIO  {
                 if(repeatInterval > 0 ) {
                     start = LocalDateTime.ofEpochSecond(dis.readLong(), 0, ZoneOffset.UTC);
                     end = LocalDateTime.ofEpochSecond(dis.readLong(), 0, ZoneOffset.UTC);
-                    task = new Task(taskId, title, start, end, repeatInterval);
+                    task = new Task(taskId, title, start, end, repeatInterval, active);
                 } else {
                     time = LocalDateTime.ofEpochSecond(dis.readLong(), 0, ZoneOffset.UTC);
-                    task = new Task(taskId, title, time);
+                    task = new Task(taskId, title, time, active);
                 }
                 task.setActive(active);
                 tasks.add(task);

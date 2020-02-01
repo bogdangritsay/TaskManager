@@ -4,24 +4,22 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 public class Tasks {
     public static Iterable<Task> incoming(Iterable<Task> tasks, LocalDateTime from, LocalDateTime to) {
-        AbstractTaskList tmpAbstractTaskList;
-        if (tasks.getClass().equals(LinkedTaskList.class)) {
-            tmpAbstractTaskList = new LinkedTaskList();
-        } else {
-            tmpAbstractTaskList = new ArrayTaskList();
-        }
+        ArrayTaskList selected = new ArrayTaskList();
+
         for (Task task : tasks) {
             if (task != null) {
                 if (task.isActive() && task.nextTimeAfter(from) != null && task.nextTimeAfter(from).isBefore(to.plusSeconds(1))) {
-                    tmpAbstractTaskList.add(task);
+                    selected.add(task);
                 }
             }
         }
-        return tmpAbstractTaskList;
+
+        return selected;
     }
+
+
 
     public static SortedMap<LocalDateTime, Set<Task>> calendar(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end) {
         SortedMap<LocalDateTime, Set<Task>> calendar = new TreeMap<>();
@@ -30,8 +28,7 @@ public class Tasks {
 
         for (Task task : taskList) {
             if (task.getRepeatInterval() > 0) {
-                dateList.addAll(Tasks.getRepeatDates(task).stream().filter(date -> date.isBefore(end.plusSeconds(1))
-                        && date.isAfter(start)).collect(Collectors.toList()));
+                dateList.addAll(Tasks.getRepeatDates(task).stream().filter(date -> date.isBefore(end.plusSeconds(1)) && date.isAfter(start)).collect(Collectors.toList()));
             } else {
                 dateList.add(task.getTime());
             }
@@ -54,7 +51,10 @@ public class Tasks {
 
             calendar.put(date, set);
         }
+
         return calendar;
+
+
     }
 
     private static List<LocalDateTime> getRepeatDates(Task task) {
@@ -64,20 +64,7 @@ public class Tasks {
             dates.add(date);
             date = date.plusSeconds(task.getRepeatInterval());
         }
+
         return dates;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -3,6 +3,8 @@ package ua.edu.sumdu.j2se.hritsay.tasks;
 import ua.edu.sumdu.j2se.hritsay.tasks.model.AbstractTaskList;
 import ua.edu.sumdu.j2se.hritsay.tasks.model.Task;
 
+import java.time.LocalDateTime;
+
 public interface View {
 
     public int removeTaskView(AbstractTaskList taskList);
@@ -17,11 +19,11 @@ public interface View {
 
     public void showListView(AbstractTaskList taskList);
 
-    public void notFound();
-
     public int confirmSaving();
 
-    public int readId(AbstractTaskList taskList);
+    public int readI(AbstractTaskList taskList);
+
+    public LocalDateTime readDate();
 
 }
 

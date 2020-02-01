@@ -1,10 +1,11 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task implements Cloneable, Serializable {
+    private int taskId;
     private String title;
     private LocalDateTime time;
     private LocalDateTime start;
@@ -18,12 +19,13 @@ public class Task implements Cloneable, Serializable {
      * @param title sets the title of a task.
      * @param time  sets the time of task execution.
      */
-    public Task(final String title, final LocalDateTime time) throws IllegalArgumentException {
-            if(time==null) {
-                throw new IllegalArgumentException();
-            }
-            this.title = title;
-            this.time = time;
+    public Task(final int taskId, final String title, final LocalDateTime time) throws IllegalArgumentException {
+        if (time == null) {
+            throw new IllegalArgumentException();
+        }
+        this.taskId = taskId;
+        this.title = title;
+        this.time = time;
         isActive = false;
 
     }
@@ -36,10 +38,11 @@ public class Task implements Cloneable, Serializable {
      * @param end      sets time for ending of task execution.
      * @param interval sets interval between task repeats.
      */
-    public Task(final String title, final LocalDateTime start, final LocalDateTime end, final int interval) throws IllegalArgumentException {
+    public Task(final int taskId, final String title, final LocalDateTime start, final LocalDateTime end, final int interval) throws IllegalArgumentException {
         if (start == null || end == null || interval == 0) {
             throw new IllegalArgumentException("Start or end == null. Or interval for repeatable is 0.");
         } else {
+            this.taskId = taskId;
             this.title = title;
             this.start = start;
             this.end = end;
@@ -178,6 +181,18 @@ public class Task implements Cloneable, Serializable {
         }
     }
 
+    public void setInterval(int interval) {
+        this.interval = interval;
+    }
+
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+
     /**
      * Method to check whether task is repeatable or not.
      *
@@ -197,6 +212,7 @@ public class Task implements Cloneable, Serializable {
      * return start If current < start
      * return -1 if current < 0
      */
+
     public final LocalDateTime nextTimeAfter(final LocalDateTime current) {
         if (!isActive()) {
             return null;
@@ -213,33 +229,23 @@ public class Task implements Cloneable, Serializable {
             }
             if (current.isAfter(end) || current.isEqual(end)) {
                 return null;
-            }
-           // if (current.plusSeconds(interval).isAfter(end)) return null;
-            /*if (current.plusSeconds(interval).isAfter(end) || current.plusSeconds(interval).isEqual(end)) {
-                return null;
-            } */
-            else {
+            } else {
                 LocalDateTime date = start;
-                LocalDateTime last = start;   //время последнего возможного выполнения
-                /*Проходим по датам и определяем конечную точку выполнения задачи*/
-                while(last.plusSeconds(interval).isBefore(end) || last.plusSeconds(interval).isEqual(end)) {
+                LocalDateTime last = start;
+                while (last.plusSeconds(interval).isBefore(end) || last.plusSeconds(interval).isEqual(end)) {
                     last = last.plusSeconds(interval);
                 }
-                /*Если граничное время и время последнего возможного выполнения задачи не совпадают, то задача не выполнится никогда*/
-                if(!last.isEqual(end)) {
+                if (!last.isEqual(end)) {
                     if (current.isBefore(end) && current.isAfter(last)) return null;
                 }
                 while (date.isBefore(end) || date.isEqual(end)) {
-                    if(date.isAfter(current)) break;
+                    if (date.isAfter(current)) break;
                     date = date.plusSeconds(interval);
                 }
                 return date;
             }
         }
     }
-
-
-
 
     @Override
     public boolean equals(Object o) {
@@ -256,24 +262,23 @@ public class Task implements Cloneable, Serializable {
 
     @Override
     public int hashCode() {
-        return 31*Objects.hash(title, time, start, end, interval, isActive);
+        return 31 * Objects.hash(title, time, start, end, interval, isActive);
     }
 
     @Override
-    public Task clone() throws CloneNotSupportedException { //!!!ПЕРЕПИСАТЬ МЕТОД ДЛЯ LOCALDATETIME
-        return (Task)super.clone();
+    public Task clone() throws CloneNotSupportedException {
+        return (Task) super.clone();
     }
 
     @Override
     public String toString() {
-        return " Task: " +
-                "title = '" + title + '\'' +
-                ", time = " + time +
-                ", start = " + start +
-                ", end = " + end +
-                ", interval = " + interval +
-                ", isActive = " + isActive +
-                ".\n";
+        if (isRepeated()) {
+            return taskId + "\t\t\t" + title + "\t\t\t" + start + "\t\t\t" + end + "\t" + interval + "\t" + isActive + "\n";
+
+        } else {
+            return taskId + "\t\t\t" + title + "\t\t\t" + time + "\t" + isActive + "\n";
+        }
+
     }
 }
 

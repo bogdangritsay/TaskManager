@@ -1,6 +1,4 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
-
-import java.util.ArrayList;
+package ua.edu.sumdu.j2se.hritsay.tasks.model;
 
 public class TaskListFactory<Task> {
     public static AbstractTaskList createTaskList(ListTypes.types type) {

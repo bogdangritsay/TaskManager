@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.model;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -64,7 +64,6 @@ public class Tasks {
             dates.add(date);
             date = date.plusSeconds(task.getRepeatInterval());
         }
-
         return dates;
     }
 }

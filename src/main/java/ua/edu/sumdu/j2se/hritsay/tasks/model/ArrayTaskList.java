@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.model;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -29,11 +29,23 @@ public class ArrayTaskList extends AbstractTaskList  implements Cloneable, Itera
         return false;
     }
 
-    public void add(Task task) {
-        if (size+1 >= capacity) {
-            this.grow();
+    public boolean remove(int id) {
+        for(Task task: taskArray) {
+            if(task.getTaskId() == id) {
+                remove(task);
+                return true;
+            }
         }
-        taskArray[size++] = task;
+        return false;
+    }
+
+    public void add(Task task) {
+        if(task != null) {
+            if (size + 1 >= capacity) {
+                this.grow();
+            }
+            taskArray[size++] = task;
+        }
     }
 
     private void grow() {
@@ -51,6 +63,10 @@ public class ArrayTaskList extends AbstractTaskList  implements Cloneable, Itera
         } else {
                 throw new IndexOutOfBoundsException("Index is incorrect!");
         }
+    }
+
+    public void replace(int index, Task task) {
+        this.taskArray[index] = task;
     }
 
     @Override
@@ -79,10 +95,11 @@ public class ArrayTaskList extends AbstractTaskList  implements Cloneable, Itera
 
     @Override
     public String toString() {
-        return "ArrayTaskList " +
-                "size = " + size +
-                ", capacity = " + capacity +
-                ", taskArray = \n" + Arrays.toString(taskArray);
+        String taskString="";
+        for (int i = 0; i < taskArray.length ; i++) {
+            taskString+=taskArray[i].toString();
+        }
+        return taskString;
     }
 
     @Override

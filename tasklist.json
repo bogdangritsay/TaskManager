@@ -1,0 +1,1 @@
+{"size":2,"capacity":2,"taskArray":[{"taskId":1,"title":"Рыбалка","time":{"date":{"year":2020,"month":5,"day":20},"time":{"hour":4,"minute":0,"second":0,"nano":0}},"interval":0,"isActive":false},{"taskId":2,"title":"Тренировка","time":{"date":{"year":2020,"month":5,"day":5},"time":{"hour":17,"minute":30,"second":0,"nano":0}},"interval":0,"isActive":false}]}

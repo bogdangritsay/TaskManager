@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.model;
 
 
 import java.util.Iterator;
@@ -11,10 +11,12 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
     private Node last;
 
     public void add(Task task) {
-        if (size == 0) {
-            linkFirst(task);
-        } else {
-            linkLast(task);
+        if(task != null) {
+            if (size == 0) {
+                linkFirst(task);
+            } else {
+                linkLast(task);
+            }
         }
     }
 
@@ -62,6 +64,20 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
         return false;
     }
 
+    @Override
+    public boolean remove(int id) {
+        for (Node x = first; x != null; x = x.next) {
+            if (x.item.getTaskId() == id) {
+                remove(x.item);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
     private void unlink(Node x) {
         Node next = x.next;
         Node prev = x.prev;
@@ -91,6 +107,13 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
 
         return getNode(index).item;
     }
+
+    @Override
+    public void replace(int index, Task task) {
+        for (Node x = first; x != null; x = x.next) {
+        }
+    }
+
 
     public int size() {
         return size;

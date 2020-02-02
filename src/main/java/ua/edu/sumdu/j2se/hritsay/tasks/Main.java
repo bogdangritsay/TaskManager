@@ -6,8 +6,5 @@ public class Main {
 
 		Controller controller = new ConsoleController();
 		controller.start();
-		for(;;) {
-			controller.mainController();
-		}
 	}
 }

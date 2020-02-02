@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.hritsay.tasks.model;
+package ua.edu.sumdu.j2se.hritsay.tasks;
 
 import com.google.gson.Gson;
 

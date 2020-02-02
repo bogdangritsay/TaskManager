@@ -1,8 +1,5 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
-import ua.edu.sumdu.j2se.hritsay.tasks.model.AbstractTaskList;
-import ua.edu.sumdu.j2se.hritsay.tasks.model.Task;
-
 import java.time.LocalDateTime;
 
 public interface View {
@@ -24,6 +21,8 @@ public interface View {
     public int readI(AbstractTaskList taskList);
 
     public LocalDateTime readDate();
+
+    public void hello();
 
 }
 

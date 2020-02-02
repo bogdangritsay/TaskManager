@@ -1,10 +1,6 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
-import ua.edu.sumdu.j2se.hritsay.tasks.model.*;
-
 import java.io.File;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class ConsoleController implements Controller {
     private View view = new ConsoleView();
@@ -17,11 +13,15 @@ public class ConsoleController implements Controller {
         } catch (NullPointerException e) {
             System.out.println("New task list was been created;");
         }
+        view.hello();
+        process();
     }
 
     @Override
-    public int process(AbstractTaskList taskList) {
-        return FINISH_ACTION;
+    public void process() {
+        for(;;) {
+            mainController();
+        }
     }
 
     @Override

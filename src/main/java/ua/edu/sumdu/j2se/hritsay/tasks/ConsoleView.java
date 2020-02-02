@@ -1,32 +1,33 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
-import ua.edu.sumdu.j2se.hritsay.tasks.model.*;
 import java.io.*;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
+import java.util.*;
 
 public class ConsoleView implements View {
     private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     @Override
     public int removeTaskView(AbstractTaskList taskList) {
-        int idRemTask = -1;
-        try {
-            do {
-                System.out.println("Enter ID of deleting task: ");
-                idRemTask = Integer.parseInt(bufferedReader.readLine());
-                if (checkId(idRemTask, taskList)) {
-                    break;
-                } else {
-                    System.out.println("Task is not found!");
-                }
-            } while (true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return idRemTask;
+        do {
+            int idRemTask;
+            try {
+                do {
+                    System.out.println("Enter ID of deleting task: ");
+                    idRemTask = Integer.parseInt(bufferedReader.readLine());
+                    if (checkId(idRemTask, taskList)) {
+                        System.out.println("Removed.");
+                        return idRemTask;
+                    } else {
+                        System.out.println("Task is not found!");
+                    }
+                } while (true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number!");
+            }
+        } while(true);
     }
 
     @Override
@@ -42,26 +43,32 @@ public class ConsoleView implements View {
         boolean isRepeatTask;
         try {
             do {
-                System.out.println("Enter an ID for the task:");
-                taskId = Integer.parseInt(bufferedReader.readLine());
-                if(checkId(taskId, taskList)) {
-                    System.out.println("A task with such an ID is already on the list.");
+                try {
+                    System.out.println("Enter an ID for the task:");
+                    taskId = Integer.parseInt(bufferedReader.readLine());
+                    if (checkId(taskId, taskList)) {
+                        System.out.println("A task with such an ID is already on the list.");
+                    } else {
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a number!");
                 }
-            } while (checkId(taskId, taskList));
+            } while (true);
 
             System.out.println("Enter a title for the task: ");
             title = bufferedReader.readLine();
-            System.out.println("It is active task? (true or false): ");
+            System.out.println("It is active task? \n(Enter \"true\" if the task is active or something else in if it is not): ");
             isActive = Boolean.parseBoolean(bufferedReader.readLine());
-            System.out.println("It is repeatable task? (true or false): ");
+            System.out.println("It is repeatable task? (true or false): \n(Enter \"true\" if the task is active or something else in if it is not): ");
             isRepeatTask = Boolean.parseBoolean(bufferedReader.readLine());
             if(isRepeatTask) {
-                System.out.println("Enter start time:");
-                start = readDate();
-                System.out.println("Enter end time: ");
-                end = readDate();
-                System.out.println("Enter interval of repeats: ");
-                interval = Integer.parseInt(bufferedReader.readLine());
+                    System.out.println("Enter start time:");
+                    start = readDate();
+                    System.out.println("Enter end time: ");
+                    end = readDate();
+                    System.out.println("Enter interval of repeats: ");
+                    interval = Integer.parseInt(bufferedReader.readLine());
                 addTask = new Task(taskId, title, start, end, interval, isActive);
             } else {
                 System.out.println("Enter time: ");
@@ -77,65 +84,68 @@ public class ConsoleView implements View {
 
     @Override
     public Task editView(AbstractTaskList taskList, int i) {
-        try {
-            Task chTask = taskList.getTask(i);
+        do {
+            try {
+                Task chTask = taskList.getTask(i);
 
-            System.out.println("Choose, what you want to change: \n" +
-                    "1 - Change title \n" +
-                    "2 - Active \n" +
-                    "3 - Change time(for no repeat tasks) \n" +
-                    "4 - Change start-time (for  repeat tasks) \n" +
-                    "5 - Change end-time (for  repeat tasks) \n" +
-                    "6 - Change interval (for  repeat tasks) \n");
-            int act = Integer.parseInt(bufferedReader.readLine());
+                System.out.println("Choose, what you want to change: \n" +
+                        "1 - Change title \n" +
+                        "2 - Active \n" +
+                        "3 - Change time(for no repeat tasks) \n" +
+                        "4 - Change start-time (for  repeat tasks) \n" +
+                        "5 - Change end-time (for  repeat tasks) \n" +
+                        "6 - Change interval (for  repeat tasks) \n");
+                int act = Integer.parseInt(bufferedReader.readLine());
 
-            switch(act) {
-                case 1:
-                    System.out.println("Enter new title for the task: \n");
-                    String name = bufferedReader.readLine();
-                    chTask.setTitle(name);
-                    break;
-                case 2:
-                    System.out.println("It's  active task& (true or false): \n");
-                    boolean isActive = Boolean.parseBoolean(bufferedReader.readLine());
-                    chTask.setActive(isActive);
-                    break;
-                case 3:
-                    if(!chTask.isRepeated()) {
-                        LocalDateTime date = readDate();
-                        chTask.setTime(date);
-                    } else {
-                        System.out.println("Sorry, but it's repeatable task! \n");
-                    }
-                    break;
-                case 4:
-                    if(chTask.isRepeated()) {
-                        LocalDateTime startDate = readDate();
-                        chTask.setTime(startDate, chTask.getEndTime(), chTask.getRepeatInterval());
-                    } else {
-                        System.out.println("Sorry, but it's no repeatable task! \n ");
-                    }
-                    break;
-                case 5:
-                    if(chTask.isRepeated()) {
-                        LocalDateTime endDate = readDate();
-                        chTask.setTime(chTask.getStartTime(), endDate, chTask.getRepeatInterval());
-                    } else {
-                        System.out.println("Sorry, but it's no repeatable task! \n");
-                    }
-                    break;
-                case 6:
-                    System.out.println("Enter an interval for repeatable task: \n");
-                    int interval = Integer.parseInt(bufferedReader.readLine());
-                    chTask.setInterval(interval);
-                    break;
+                switch (act) {
+                    case 1:
+                        System.out.println("Enter new title for the task: \n");
+                        String name = bufferedReader.readLine();
+                        chTask.setTitle(name);
+                        break;
+                    case 2:
+                        System.out.println("It's  active task? (true or false): \n");
+                        boolean isActive = Boolean.parseBoolean(bufferedReader.readLine());
+                        chTask.setActive(isActive);
+                        break;
+                    case 3:
+                        if (!chTask.isRepeated()) {
+                            LocalDateTime date = readDate();
+                            chTask.setTime(date);
+                        } else {
+                            System.out.println("Sorry, but it's repeatable task! \n");
+                        }
+                        break;
+                    case 4:
+                        if (chTask.isRepeated()) {
+                            LocalDateTime startDate = readDate();
+                            chTask.setTime(startDate, chTask.getEndTime(), chTask.getRepeatInterval());
+                        } else {
+                            System.out.println("Sorry, but it's no repeatable task! \n ");
+                        }
+                        break;
+                    case 5:
+                        if (chTask.isRepeated()) {
+                            LocalDateTime endDate = readDate();
+                            chTask.setTime(chTask.getStartTime(), endDate, chTask.getRepeatInterval());
+                        } else {
+                            System.out.println("Sorry, but it's no repeatable task! \n");
+                        }
+                        break;
+                    case 6:
+                        System.out.println("Enter an interval for repeatable task: \n");
+                        int interval = Integer.parseInt(bufferedReader.readLine());
+                        chTask.setInterval(interval);
+                        break;
+                }
+                return chTask;
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Input error!");
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number!");
             }
-            return chTask;
-        } catch(IOException e) {
-            e.printStackTrace();
-            System.out.println("Input error!");
-        }
-        return null;
+        } while(true);
     }
 
     private boolean checkId(int id, AbstractTaskList taskList) {
@@ -149,45 +159,52 @@ public class ConsoleView implements View {
 
     @Override
     public int readI(AbstractTaskList taskList) {
-        try {
-            int id;
-            do {
+        do {
+            try {
+                int id;
                 System.out.println("Enter an id for the task, please: \n");
                 id = Integer.parseInt(bufferedReader.readLine());
                 for (int i = 0; i < taskList.size(); i++) {
-                    if(id == taskList.getTask(i).getTaskId()) {
-                           return i;
+                    if (id == taskList.getTask(i).getTaskId()) {
+                        return i;
                     }
                 }
                 System.out.println("This task is not found!");
-            } while (true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return -1;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number!");
+            }
+        } while (true);
     }
 
     @Override
     public LocalDateTime readDate() {
+        do {
         try {
             LocalDateTime date = LocalDateTime.now();
-            System.out.println("Enter year: ");
-            int year = Integer.parseInt(bufferedReader.readLine());
-            System.out.println("Enter month (1,2, 3 etc.): ");
-            int month = Integer.parseInt(bufferedReader.readLine());
-            System.out.println("Enter day of month: ");
-            int day =  Integer.parseInt(bufferedReader.readLine());
-            System.out.println("Enter hours: ");
-            int hours = Integer.parseInt(bufferedReader.readLine());
-            System.out.println("Enter minutes: ");
-            int minutes = Integer.parseInt(bufferedReader.readLine());
+                System.out.println("Enter year: ");
+                int year = Integer.parseInt(bufferedReader.readLine());
+                System.out.println("Enter month (1,2, 3 etc.): ");
+                int month = Integer.parseInt(bufferedReader.readLine());
+                System.out.println("Enter day of month: ");
+                int day = Integer.parseInt(bufferedReader.readLine());
+                System.out.println("Enter hours: ");
+                int hours = Integer.parseInt(bufferedReader.readLine());
+                System.out.println("Enter minutes: ");
+                int minutes = Integer.parseInt(bufferedReader.readLine());
+                date = LocalDateTime.of(year, month, day, hours, minutes, 0);
+                return date;
 
-            date = LocalDateTime.of(year, month, day, hours, minutes, 0);
-            return date;
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (DateTimeException e) {
+            System.out.println("Enter a valid date an time!");
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a number!");
         }
-        return null;
+        } while (true);
     }
 
     @Override
@@ -209,35 +226,43 @@ public class ConsoleView implements View {
             }
             if (iter.hasNext()) {
                 sb.append(',').append('\n');
+            } else {
+            sb.append('.');
             }
         }
 
         return sb.toString();
     }
 
+    public void hello() {
+        System.out.println("Hello. I'm your Task Manager!");
+    }
+
     @Override
     public int mainMenuView() {
         try {
-            System.out.println("Hello. I'm your Task Manager! \n Choose your action: \n");
+            System.out.println("Choose your action:");
             int act = -1;
             while(true) {
                 System.out.println(
-                        "1 - Show all task list \n"
-                        + "2 - Show calendar for a week \n"
-                        + "3 - Add new task \n"
-                        + "4 - Remove task \n"
-                        + "5 - Edit task  \n"
-                        + "0 - Exit");
+                          "\t1 - Show all task list \n"
+                        + "\t2 - Show calendar for a week \n"
+                        + "\t3 - Add new task \n"
+                        + "\t4 - Remove task \n"
+                        + "\t5 - Edit task  \n"
+                        + "\t0 - Exit");
                 act = Integer.parseInt(bufferedReader.readLine());
+
                 if(act > 5 || act < 0) {
                     System.out.println("Incorrect number!");
-
                 } else {
                     return act;
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("IO Error!");
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a number!");
         }
         return -1;
     }
@@ -261,6 +286,7 @@ public class ConsoleView implements View {
 
     @Override
     public int confirmSaving() {
+        do {
         try {
             System.out.println("Save changes?\n 1 - Yes\n 0 - No");
             int act = -1;
@@ -278,8 +304,10 @@ public class ConsoleView implements View {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a number!");
         }
-        return  -1;
+        } while (true);
     }
 
 }

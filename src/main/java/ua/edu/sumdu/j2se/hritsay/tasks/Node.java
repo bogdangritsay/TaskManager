@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.hritsay.tasks.model;
+package ua.edu.sumdu.j2se.hritsay.tasks;
 
 public class Node implements Cloneable {
         Task item;

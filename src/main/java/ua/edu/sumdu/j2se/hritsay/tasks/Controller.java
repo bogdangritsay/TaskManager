@@ -1,7 +1,5 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
-import ua.edu.sumdu.j2se.hritsay.tasks.model.AbstractTaskList;
-
 public interface Controller {
     public int SHOW_LIST_ACTION = 1;
     public int CALENDAR_TASK_ACTION = 2;
@@ -10,7 +8,7 @@ public interface Controller {
     public int EDIT_TASK_ACTION = 5;
     public int FINISH_ACTION = 0;
 
-    public int process(AbstractTaskList taskList);
+    public void process();
 
     public void addTaskController();
 

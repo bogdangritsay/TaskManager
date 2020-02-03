@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
+import org.apache.log4j.Logger;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -12,6 +14,8 @@ public class Task implements Cloneable, Serializable {
     private LocalDateTime end;
     private int interval;
     private boolean isActive;
+    final static Logger logger = Logger.getLogger(Task.class);
+
 
     /**
      * Constructor for non-repeatable task.
@@ -20,13 +24,17 @@ public class Task implements Cloneable, Serializable {
      * @param time  sets the time of task execution.
      */
     public Task(final int taskId, final String title, final LocalDateTime time, final boolean isActive) throws IllegalArgumentException {
-        if (time == null) {
-            throw new IllegalArgumentException();
+        try {
+            if (time == null) {
+                throw new IllegalArgumentException();
+            }
+            this.taskId = taskId;
+            this.title = title;
+            this.time = time;
+            this.isActive = isActive;
+        } catch (IllegalArgumentException e) {
+            logger.error("Illegal Argument Exception");
         }
-        this.taskId = taskId;
-        this.title = title;
-        this.time = time;
-        this.isActive = isActive;
 
     }
 
@@ -38,17 +46,21 @@ public class Task implements Cloneable, Serializable {
      * @param end      sets time for ending of task execution.
      * @param interval sets interval between task repeats.
      */
-    public Task(final int taskId, final String title, final LocalDateTime start, final LocalDateTime end, final int interval, final boolean isActive) throws IllegalArgumentException {
-        if (start == null || end == null || interval == 0) {
-            throw new IllegalArgumentException("Start or end == null. Or interval for repeatable is 0.");
-        } else {
-            this.taskId = taskId;
-            this.title = title;
-            this.start = start;
-            this.end = end;
-            this.interval = interval;
-            this.time = start;
-           this.isActive = isActive;
+    public Task(final int taskId, final String title, final LocalDateTime start, final LocalDateTime end, final int interval, final boolean isActive) {
+        try {
+            if (start == null || end == null || interval == 0) {
+                throw new IllegalArgumentException();
+            } else {
+                this.taskId = taskId;
+                this.title = title;
+                this.start = start;
+                this.end = end;
+                this.interval = interval;
+                this.time = start;
+                this.isActive = isActive;
+            }
+        } catch (IllegalArgumentException e) {
+            logger.error("IllegalArgumentException: Start or end == null. Or interval for repeatable is 0.");
         }
     }
 
@@ -265,8 +277,12 @@ public class Task implements Cloneable, Serializable {
     }
 
     @Override
-    public Task clone() throws CloneNotSupportedException {
-        return (Task) super.clone();
+    public Task clone()  {
+        try {
+            return (Task) super.clone();
+        } catch (CloneNotSupportedException e) {}
+        logger.error("CloneNotSupportedException");
+        return null;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -7,6 +9,7 @@ import java.util.*;
 
 public class ConsoleView implements View {
     private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    final static Logger logger = Logger.getLogger(ConsoleView.class);
     @Override
     public int removeTaskView(AbstractTaskList taskList) {
         do {
@@ -23,9 +26,10 @@ public class ConsoleView implements View {
                     }
                 } while (true);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Input/output exception.");
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number!");
+                logger.info("Incorrect data entry was intercepted");
             }
         } while(true);
     }
@@ -52,6 +56,7 @@ public class ConsoleView implements View {
                         break;
                     }
                 } catch (NumberFormatException e) {
+                    logger.info("Incorrect data entry was intercepted");
                     System.out.println("Please enter a number!");
                 }
             } while (true);
@@ -77,7 +82,7 @@ public class ConsoleView implements View {
             }
         }
         catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Input/output exception");
         }
         return addTask;
     }
@@ -140,9 +145,9 @@ public class ConsoleView implements View {
                 }
                 return chTask;
             } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Input error!");
+                logger.error("Input/output exception");
             } catch (NumberFormatException e) {
+                logger.info("Incorrect data entry was intercepted");
                 System.out.println("Please enter a number!");
             }
         } while(true);
@@ -172,8 +177,10 @@ public class ConsoleView implements View {
                 System.out.println("This task is not found!");
 
             } catch (IOException e) {
+                logger.info("Input/output exception");
                 e.printStackTrace();
             } catch (NumberFormatException e) {
+                logger.info("Incorrect data entry was intercepted");
                 System.out.println("Please enter a number!");
             }
         } while (true);
@@ -198,11 +205,12 @@ public class ConsoleView implements View {
                 return date;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Input/output exception");
         } catch (DateTimeException e) {
+            logger.info("Incorrect date entry ");
             System.out.println("Enter a valid date an time!");
         } catch (NumberFormatException e) {
-            System.out.println("Please enter a number!");
+            logger.info("Incorrect data entry was intercepted");
         }
         } while (true);
     }
@@ -230,7 +238,6 @@ public class ConsoleView implements View {
             sb.append('.');
             }
         }
-
         return sb.toString();
     }
 
@@ -240,31 +247,31 @@ public class ConsoleView implements View {
 
     @Override
     public int mainMenuView() {
-        try {
-            System.out.println("Choose your action:");
-            int act = -1;
-            while(true) {
+        do {
+            try {
+                System.out.println("Choose your action:");
+                int act = -1;
                 System.out.println(
-                          "\t1 - Show all task list \n"
-                        + "\t2 - Show calendar for a week \n"
-                        + "\t3 - Add new task \n"
-                        + "\t4 - Remove task \n"
-                        + "\t5 - Edit task  \n"
-                        + "\t0 - Exit");
+                        "\t1 - Show all task list \n"
+                                + "\t2 - Show calendar for a week \n"
+                                + "\t3 - Add new task \n"
+                                + "\t4 - Remove task \n"
+                                + "\t5 - Edit task  \n"
+                                + "\t0 - Exit");
                 act = Integer.parseInt(bufferedReader.readLine());
 
-                if(act > 5 || act < 0) {
+                if (act > 5 || act < 0) {
                     System.out.println("Incorrect number!");
                 } else {
                     return act;
                 }
+
+            } catch (IOException e) {
+                logger.error("Input/output exception");
+            } catch (NumberFormatException e) {
+                logger.info("Incorrect data entry was intercepted");
             }
-        } catch (IOException e) {
-            System.out.println("IO Error!");
-        } catch (NumberFormatException e) {
-            System.out.println("Please enter a number!");
-        }
-        return -1;
+        } while (true);
     }
 
     @Override
@@ -287,26 +294,27 @@ public class ConsoleView implements View {
     @Override
     public int confirmSaving() {
         do {
-        try {
-            System.out.println("Save changes?\n 1 - Yes\n 0 - No");
-            int act = -1;
-            boolean yesOrNo = false;
-            while(!yesOrNo) {
-                int actTmp = Integer.parseInt(bufferedReader.readLine());
-                if(actTmp == 1 || actTmp == 0) {
-                    act = actTmp;
-                    yesOrNo = true;
-                } else {
-                    System.out.println("Incorrect action! \nPlease choose 1 or 0.");
+            try {
+                System.out.println("Save changes?\n 1 - Yes\n 0 - No");
+                int act = -1;
+                boolean yesOrNo = false;
+                while (!yesOrNo) {
+                    int actTmp = Integer.parseInt(bufferedReader.readLine());
+                    if (actTmp == 1 || actTmp == 0) {
+                        act = actTmp;
+                        yesOrNo = true;
+                    } else {
+                        System.out.println("Incorrect action! \nPlease choose 1 or 0.");
+                    }
                 }
-            }
-            return act;
+                return act;
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NumberFormatException e) {
-            System.out.println("Please enter a number!");
-        }
+            } catch (IOException e) {
+                logger.error("Input/output exception");
+            } catch (NumberFormatException e) {
+                logger.info("Incorrect data entry was intercepted");
+                System.out.println("Please enter a number!");
+            }
         } while (true);
     }
 

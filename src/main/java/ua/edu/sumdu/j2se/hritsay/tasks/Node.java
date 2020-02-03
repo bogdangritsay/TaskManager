@@ -20,8 +20,6 @@ public class Node implements Cloneable {
     public Node clone() throws CloneNotSupportedException {
             Node node = (Node)super.clone();
             node.item = item.clone();
-           /* node.prev = prev.clone();
-            node.next = next.clone();*/
             return node;
     }
 

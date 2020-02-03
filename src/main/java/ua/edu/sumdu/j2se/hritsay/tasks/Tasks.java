@@ -19,8 +19,6 @@ public class Tasks {
         return selected;
     }
 
-
-
     public static SortedMap<LocalDateTime, Set<Task>> calendar(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end) {
         SortedMap<LocalDateTime, Set<Task>> calendar = new TreeMap<>();
         Iterable<Task> taskList = Tasks.incoming(tasks, start, end);
@@ -33,7 +31,6 @@ public class Tasks {
                 dateList.add(task.getTime());
             }
         }
-
         for (LocalDateTime date : dateList) {
             Set<Task> set = new HashSet<>();
             for (Task task : taskList) {
@@ -48,13 +45,9 @@ public class Tasks {
                     }
                 }
             }
-
             calendar.put(date, set);
         }
-
         return calendar;
-
-
     }
 
     private static List<LocalDateTime> getRepeatDates(Task task) {
@@ -64,7 +57,6 @@ public class Tasks {
             dates.add(date);
             date = date.plusSeconds(task.getRepeatInterval());
         }
-
         return dates;
     }
 }

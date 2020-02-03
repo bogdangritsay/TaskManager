@@ -75,9 +75,6 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
         return false;
     }
 
-
-
-
     private void unlink(Node x) {
         Node next = x.next;
         Node prev = x.prev;
@@ -114,7 +111,6 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
         }
     }
 
-
     public int size() {
         return size;
     }
@@ -127,7 +123,6 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
         }
         return tmp.getStream();
     }
-
 
     private Node getNode(int index) {
         if (size > 0 && index < size) {

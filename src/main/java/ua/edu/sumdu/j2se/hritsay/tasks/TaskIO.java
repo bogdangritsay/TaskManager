@@ -1,30 +1,26 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
 import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 
 
 import java.io.*;
 import java.time.*;
 
 public class TaskIO  {
+    final static Logger logger = Logger.getLogger(ConsoleController.class);
     public static void write(AbstractTaskList tasks, OutputStream out) {
         try (DataOutputStream oos = new DataOutputStream(out)) {
-            //размер списка
             oos.write(tasks.size());
             for(Task task : tasks) {
-                //длинна названия задачи
                 oos.write(task.getTitle().length());
-                //название задачи
                 oos.writeUTF(task.getTitle());
-                //активность
                 if (task.isActive()) {
                     oos.write( 1);
                 } else {
                     oos.write(0);
                 }
-                //интервал
                 oos.write(task.getRepeatInterval());
-                //время
                 if (task.isRepeated()) {
                     Instant startInstant = task.getStartTime().atZone(ZoneId.systemDefault()).toInstant();
                     long startMillis = startInstant.toEpochMilli();
@@ -39,7 +35,7 @@ public class TaskIO  {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+           logger.error("Input/output exception");
         }
 
     }
@@ -71,7 +67,7 @@ public class TaskIO  {
                 tasks.add(task);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Input/output exception");
         }
     }
 
@@ -79,22 +75,19 @@ public class TaskIO  {
         try (FileOutputStream fos = new FileOutputStream(file)){
             TaskIO.write(tasks, fos);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Input/output exception");
         }
     }
-
-
 
     public static void readBinary(AbstractTaskList tasks, File file) {
         try(FileInputStream fis = new FileInputStream(file)) {
             TaskIO.read(tasks, fis);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Input/output exception");
         }
     }
 
     public static void write(AbstractTaskList tasks, Writer out) {
-        //записує задачі зі списку у потік в форматі JSON
         try(Writer outW = out) {
             ArrayTaskList list = new ArrayTaskList();
             for(Task task : tasks) {
@@ -103,10 +96,9 @@ public class TaskIO  {
         Gson gson = new Gson();
         outW.write(gson.toJson(list, ArrayTaskList.class));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Input/output exception");
         }
     }
-
 
     public static void read(AbstractTaskList tasks, Reader in) {
         try (Reader inR = in) {
@@ -117,17 +109,15 @@ public class TaskIO  {
             tasks.add(task);
         }
         } catch(IOException e) {
-        e.printStackTrace();
+            logger.error("Input/output exception");
         }
-
     }
-
 
     public static void writeText(AbstractTaskList tasks, File file) {
         try (FileWriter fwr = new FileWriter(file)){
             write(tasks, fwr);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Input/output exception");
         }
     }
 
@@ -135,10 +125,9 @@ public class TaskIO  {
         try (FileReader frd = new FileReader(file)){
             read(tasks, frd);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Input/output exception");
         }
     }
-
 
 }
 

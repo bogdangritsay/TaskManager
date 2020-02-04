@@ -1,21 +1,56 @@
 package ua.edu.sumdu.j2se.hritsay.tasks;
 
+import org.apache.log4j.Logger;
+
+import java.io.File;
+import java.time.LocalDateTime;
+
 public class ConsoleNotification implements Notification {
-    @Override
-    public void notify(AbstractTaskList taskList) {
-        System.out.println("До таски: ");
-    }
+    private AbstractTaskList taskList = new ArrayTaskList();
+    final static Logger logger = Logger.getLogger(ConsoleNotification.class);
 
-    Runnable task = new Runnable() {
+    private Runnable notifySubSystem = new Runnable() {
         @Override
-        public void run() {
-
+        public void run() throws NullPointerException {
+            TaskIO.readText(taskList, new File("tasklist.json"));
+            while (true) {
+                try {
+                    for (Task task : taskList) {
+                        notifyMessage(task);
+                    }
+                    Thread.sleep(60000);
+                } catch (InterruptedException e) {
+                    logger.error("Interrupted exception in notifications.");
+                }
+            }
         }
     };
-    /*
-    Thread thread = new Thread(task);
-        thread.start();*/
+
+    public Runnable getNotifySubSystem() {
+        return notifySubSystem;
+    }
+
+    @Override
+    public void notifyMessage(Task task) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime nextPlus = now.plusMinutes(30);
+        LocalDateTime nextTimeActual = task.nextTimeAfter(now);
+        if (!(nextTimeActual == null)) {
+            if ((nextTimeActual.isBefore(nextPlus))) {
+                System.out.println("-------------------!!!NOTIFICATION!!!----------------------");
+                System.out.println("Don't forget that today at: "
+                        + nextTimeActual.getHour() + ":"
+                        + nextTimeActual.getMinute()
+                        + " you must: "
+                        + task.getTitle());
+                System.out.println("-----------------------------------------------------------");
+            }
+        }
+    }
 }
+
+
+
 
 
 

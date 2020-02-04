@@ -8,7 +8,7 @@ public interface Controller {
     public int EDIT_TASK_ACTION = 5;
     public int FINISH_ACTION = 0;
 
-    public void process();
+    public void process() throws InterruptedException;
 
     public void addTaskController();
 
@@ -23,6 +23,8 @@ public interface Controller {
     public void showListController();
 
     public void start();
+
+    public AbstractTaskList getTaskList();
 
 
 }

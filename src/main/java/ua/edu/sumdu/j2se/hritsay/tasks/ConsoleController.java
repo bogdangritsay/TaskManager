@@ -10,6 +10,11 @@ public class ConsoleController implements Controller {
     final static Logger logger = Logger.getLogger(ConsoleController.class);
 
     @Override
+    public AbstractTaskList getTaskList() {
+        return taskList;
+    }
+
+    @Override
     public void start() {
         try {
             TaskIO.readText(taskList, new File("tasklist.json"));
@@ -25,7 +30,11 @@ public class ConsoleController implements Controller {
     @Override
     public void process() {
         for(;;) {
+            ConsoleNotification notification = new ConsoleNotification();
+            Thread thread = new Thread(notification.getNotifySubSystem());
+            thread.start();
             mainController();
+            thread.interrupt();
         }
     }
 
@@ -104,4 +113,7 @@ public class ConsoleController implements Controller {
                 break;
         }
     }
+
+
+
 }

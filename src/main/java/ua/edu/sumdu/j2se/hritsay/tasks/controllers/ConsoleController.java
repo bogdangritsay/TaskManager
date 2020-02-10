@@ -35,10 +35,10 @@ public class ConsoleController implements Controller {
 
     @Override
     public void process() {
+        ConsoleNotification notification = new ConsoleNotification();
+        Thread thread = new Thread(notification.getNotifySubSystem());
+        thread.start();
         for(;;) {
-            ConsoleNotification notification = new ConsoleNotification();
-            Thread thread = new Thread(notification.getNotifySubSystem());
-            thread.start();
             mainController();
         }
     }

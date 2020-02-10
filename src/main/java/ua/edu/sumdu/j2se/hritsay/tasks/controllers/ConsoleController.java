@@ -11,9 +11,13 @@ import ua.edu.sumdu.j2se.hritsay.tasks.models.TaskIO;
 import java.io.File;
 
 public class ConsoleController implements Controller {
-    private View view = new ConsoleView();
+    private View view;
     private AbstractTaskList taskList = new ArrayTaskList();
     final static Logger logger = Logger.getLogger(ConsoleController.class);
+
+    public ConsoleController(View view) {
+        this.view = view;
+    }
 
     @Override
     public AbstractTaskList getTaskList() {

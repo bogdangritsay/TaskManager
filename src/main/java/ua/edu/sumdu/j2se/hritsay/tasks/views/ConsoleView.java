@@ -73,8 +73,8 @@ public class ConsoleView implements View {
                     start = readDate();
                     System.out.println("Enter end time: ");
                     end = readDate();
-                    System.out.println("Enter interval of repeats: ");
-                    interval = Integer.parseInt(bufferedReader.readLine());
+                    System.out.println("Enter interval of repeats(in minutes): ");
+                    interval = Integer.parseInt(bufferedReader.readLine()) * 60;
                 addTask = new Task(taskId, title, start, end, interval, true);
             } else {
                 System.out.println("Enter time: ");

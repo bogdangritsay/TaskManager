@@ -22,7 +22,7 @@ public class ConsoleNotification implements Notification {
                     for (Task task : taskList) {
                         notifyMessage(task);
                     }
-                    Thread.sleep(6000);
+                    Thread.sleep(60000);
                 } catch (InterruptedException e) {
                     logger.error("Interrupted exception in notifications.");
                 }

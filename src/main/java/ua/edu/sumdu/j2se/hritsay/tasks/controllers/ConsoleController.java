@@ -23,7 +23,7 @@ public class ConsoleController implements Controller {
     @Override
     public void start() {
         try {
-            TaskIO.readText(taskList, new File("tasklist.json"));
+            TaskIO.readText(taskList, new File(Consts.TASKS_FILE));
             logger.info("The job list was read from a file.");
         } catch (NullPointerException e) {
             logger.info("New task list was been created.");
@@ -110,7 +110,7 @@ public class ConsoleController implements Controller {
                 int save = view.confirmSaving();
                 if(save == 1) {
                     logger.info("Exit with saving.");
-                  TaskIO.writeText(taskList, new File("tasklist.json"));
+                  TaskIO.writeText(taskList, new File(Consts.TASKS_FILE));
                 } else {
                     logger.info("Exit without saving.");
                 }

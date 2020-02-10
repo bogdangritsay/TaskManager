@@ -16,7 +16,7 @@ public class ConsoleNotification implements Notification {
     private Runnable notifySubSystem = new Runnable() {
         @Override
         public void run() throws NullPointerException {
-            TaskIO.readText(taskList, new File("tasklist.json"));
+            TaskIO.readText(taskList, new File(Consts.TASKS_FILE));
             while (true) {
                 try {
                     for (Task task : taskList) {

@@ -1,6 +1,12 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.controllers;
 
 import org.apache.log4j.Logger;
+import ua.edu.sumdu.j2se.hritsay.tasks.views.ConsoleView;
+import ua.edu.sumdu.j2se.hritsay.tasks.views.View;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.AbstractTaskList;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.ArrayTaskList;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.Task;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.TaskIO;
 
 import java.io.File;
 
@@ -34,7 +40,6 @@ public class ConsoleController implements Controller {
             Thread thread = new Thread(notification.getNotifySubSystem());
             thread.start();
             mainController();
-            thread.interrupt();
         }
     }
 

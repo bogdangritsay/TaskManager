@@ -1,6 +1,10 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.views;
 
 import org.apache.log4j.Logger;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.AbstractTaskList;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.ArrayTaskList;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.Task;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.Tasks;
 
 import java.io.*;
 import java.time.DateTimeException;

@@ -1,6 +1,10 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.controllers;
 
 import org.apache.log4j.Logger;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.AbstractTaskList;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.ArrayTaskList;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.Task;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.TaskIO;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -18,7 +22,7 @@ public class ConsoleNotification implements Notification {
                     for (Task task : taskList) {
                         notifyMessage(task);
                     }
-                    Thread.sleep(60000);
+                    Thread.sleep(6000);
                 } catch (InterruptedException e) {
                     logger.error("Interrupted exception in notifications.");
                 }

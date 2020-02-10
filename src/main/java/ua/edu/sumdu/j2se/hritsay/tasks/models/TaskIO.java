@@ -1,7 +1,8 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.models;
 
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
+import ua.edu.sumdu.j2se.hritsay.tasks.controllers.ConsoleController;
 
 
 import java.io.*;
@@ -125,7 +126,7 @@ public class TaskIO  {
         try (FileReader frd = new FileReader(file)){
             read(tasks, frd);
         } catch (IOException e) {
-            logger.error("Input/output exception");
+            logger.info("Input/output exception: new file was been created.");
         }
     }
 

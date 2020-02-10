@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.models;
 
 public class TaskListFactory<Task> {
     public static AbstractTaskList createTaskList(ListTypes.types type) {

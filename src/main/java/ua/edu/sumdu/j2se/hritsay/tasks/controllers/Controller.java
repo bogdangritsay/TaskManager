@@ -1,4 +1,6 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.controllers;
+
+import ua.edu.sumdu.j2se.hritsay.tasks.models.AbstractTaskList;
 
 public interface Controller {
     public int SHOW_LIST_ACTION = 1;

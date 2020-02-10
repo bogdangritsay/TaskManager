@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.models;
 
 
 import java.util.Iterator;

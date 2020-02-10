@@ -1,4 +1,7 @@
-package ua.edu.sumdu.j2se.hritsay.tasks;
+package ua.edu.sumdu.j2se.hritsay.tasks.views;
+
+import ua.edu.sumdu.j2se.hritsay.tasks.models.AbstractTaskList;
+import ua.edu.sumdu.j2se.hritsay.tasks.models.Task;
 
 import java.time.LocalDateTime;
 

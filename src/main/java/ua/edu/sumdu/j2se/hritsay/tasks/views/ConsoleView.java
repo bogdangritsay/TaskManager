@@ -47,7 +47,6 @@ public class ConsoleView implements View {
         LocalDateTime start;
         LocalDateTime end;
         int interval;
-        boolean isActive;
         boolean isRepeatTask;
         try {
             do {
@@ -67,8 +66,6 @@ public class ConsoleView implements View {
 
             System.out.println("Enter a title for the task: ");
             title = bufferedReader.readLine();
-            System.out.println("It is active task? \n(Enter \"true\" if the task is active or something else in if it is not): ");
-            isActive = Boolean.parseBoolean(bufferedReader.readLine());
             System.out.println("It is repeatable task? (true or false): \n(Enter \"true\" if the task is active or something else in if it is not): ");
             isRepeatTask = Boolean.parseBoolean(bufferedReader.readLine());
             if(isRepeatTask) {
@@ -78,11 +75,11 @@ public class ConsoleView implements View {
                     end = readDate();
                     System.out.println("Enter interval of repeats: ");
                     interval = Integer.parseInt(bufferedReader.readLine());
-                addTask = new Task(taskId, title, start, end, interval, isActive);
+                addTask = new Task(taskId, title, start, end, interval, true);
             } else {
                 System.out.println("Enter time: ");
                 time = readDate();
-                addTask = new Task(taskId, title, time, isActive);
+                addTask = new Task(taskId, title, time, true);
             }
         }
         catch (IOException e) {

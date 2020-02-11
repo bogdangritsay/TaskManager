@@ -17,7 +17,7 @@ public class PrettyMapView {
             sb.append(entry.getKey());
             sb.append('\t').append(':').append('\t');
             Set<Task>  tasksForDate = entry.getValue();
-            for(Task task : tasksForDate) {
+            for (Task task : tasksForDate) {
                 sb.append(task.getTitle());
             }
             if (iter.hasNext()) {

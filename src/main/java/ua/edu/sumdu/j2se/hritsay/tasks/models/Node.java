@@ -18,13 +18,13 @@ public class Node implements Cloneable {
 
     @Override
     public Node clone() throws CloneNotSupportedException {
-            Node node = (Node)super.clone();
+            Node node = (Node) super.clone();
             node.item = item.clone();
             return node;
     }
 
     public boolean hasNext() {
-            if(next != null) return true;
+            if (next != null) return true;
             return false;
     }
 }

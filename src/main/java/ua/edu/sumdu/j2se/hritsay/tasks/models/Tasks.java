@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Tasks {
+
     public static Iterable<Task> incoming(Iterable<Task> tasks, LocalDateTime from, LocalDateTime to) {
         ArrayTaskList selected = new ArrayTaskList();
 
@@ -15,7 +16,6 @@ public class Tasks {
                 }
             }
         }
-
         return selected;
     }
 
@@ -37,7 +37,9 @@ public class Tasks {
                 if (Tasks.getRepeatDates(task).contains(date) && !date.equals(task.getStartTime())) {
                     List<LocalDateTime> tempDates = Tasks.getRepeatDates(task);
                     for (LocalDateTime tempDate : tempDates) {
-                        if (tempDate.equals(date)) set.add(task);
+                        if (tempDate.equals(date)) {
+                            set.add(task);
+                        }
                     }
                 } else {
                     if (task.getStartTime().equals(date)) {

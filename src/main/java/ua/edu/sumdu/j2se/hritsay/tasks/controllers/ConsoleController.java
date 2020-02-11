@@ -1,7 +1,6 @@
 package ua.edu.sumdu.j2se.hritsay.tasks.controllers;
 
 import org.apache.log4j.Logger;
-import ua.edu.sumdu.j2se.hritsay.tasks.views.ConsoleView;
 import ua.edu.sumdu.j2se.hritsay.tasks.views.View;
 import ua.edu.sumdu.j2se.hritsay.tasks.models.AbstractTaskList;
 import ua.edu.sumdu.j2se.hritsay.tasks.models.ArrayTaskList;
@@ -13,7 +12,7 @@ import java.io.File;
 public class ConsoleController implements Controller {
     private View view;
     private AbstractTaskList taskList = new ArrayTaskList();
-    final static Logger logger = Logger.getLogger(ConsoleController.class);
+    private final static Logger logger = Logger.getLogger(ConsoleController.class);
 
     public ConsoleController(View view) {
         this.view = view;
@@ -42,7 +41,7 @@ public class ConsoleController implements Controller {
         ConsoleNotification notification = new ConsoleNotification();
         Thread thread = new Thread(notification.getNotifySubSystem());
         thread.start();
-        for(;;) {
+        for (;;) {
             mainController();
         }
     }
@@ -56,7 +55,7 @@ public class ConsoleController implements Controller {
     @Override
     public void addTaskController() {
         logger.info("Adding a task...");
-       taskList.add(view.addTaskView(taskList));
+        taskList.add(view.addTaskView(taskList));
         logger.info("Task was added.");
     }
 
@@ -65,7 +64,7 @@ public class ConsoleController implements Controller {
         int idRemTask = view.removeTaskView(taskList);
         logger.info("Removing a task...");
         for (Task task : taskList) {
-            if(idRemTask == task.getTaskId()) {
+            if (idRemTask == task.getTaskId()) {
                 taskList.remove(task);
                 logger.info("Task has been deleted.");
             }
@@ -75,15 +74,15 @@ public class ConsoleController implements Controller {
     @Override
     public void editController() {
         logger.info("Editing a task...");
-     int i =  view.readI(taskList);
-       taskList.replace(i, view.editView(taskList, i));
+        int i =  view.readI(taskList);
+        taskList.replace(i, view.editView(taskList, i));
         logger.info("Task was edited.");
     }
 
     @Override
     public void calendarController() {
-    view.calendarView(taskList);
-    logger.info("The calendar of tasks is displayed.");
+        view.calendarView(taskList);
+        logger.info("The calendar of tasks is displayed.");
     }
 
     @Override
@@ -117,7 +116,4 @@ public class ConsoleController implements Controller {
         }
         TaskIO.writeText(taskList, new File(Consts.TASKS_FILE));
     }
-
-
-
 }

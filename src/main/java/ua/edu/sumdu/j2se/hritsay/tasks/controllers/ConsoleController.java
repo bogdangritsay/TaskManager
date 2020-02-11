@@ -111,16 +111,11 @@ public class ConsoleController implements Controller {
                 break;
 
             case FINISH_ACTION:
-                int save = view.confirmSaving();
-                if(save == 1) {
-                    logger.info("Exit with saving.");
-                  TaskIO.writeText(taskList, new File(Consts.TASKS_FILE));
-                } else {
-                    logger.info("Exit without saving.");
-                }
+                logger.info("Exit");
                 System.exit(0);
                 break;
         }
+        TaskIO.writeText(taskList, new File(Consts.TASKS_FILE));
     }
 
 

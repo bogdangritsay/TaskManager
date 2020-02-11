@@ -219,28 +219,10 @@ public class ConsoleView implements View {
     @Override
     public void calendarView(AbstractTaskList taskList) {
         System.out.println("Calendar for 7 days: ");
-        System.out.println(prettyMap(Tasks.calendar(taskList, LocalDateTime.now(), LocalDateTime.now().plusDays(7))));
+        System.out.println(PrettyMapView.prettyMap(Tasks.calendar(taskList, LocalDateTime.now(), LocalDateTime.now().plusDays(7))));
     }
 
-    private String prettyMap(SortedMap<LocalDateTime, Set<Task>> map) {
-        StringBuilder sb = new StringBuilder();
-        Iterator<Map.Entry<LocalDateTime, Set<Task>>> iter = map.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry<LocalDateTime, Set<Task>> entry = iter.next();
-            sb.append(entry.getKey());
-            sb.append('\t').append(':').append('\t');
-            Set<Task>  tasksForDate = entry.getValue();
-            for(Task task : tasksForDate) {
-                sb.append(task.getTitle());
-            }
-            if (iter.hasNext()) {
-                sb.append(',').append('\n');
-            } else {
-            sb.append('.');
-            }
-        }
-        return sb.toString();
-    }
+
 
     public void hello() {
         System.out.println("Hello. I'm your Task Manager!");

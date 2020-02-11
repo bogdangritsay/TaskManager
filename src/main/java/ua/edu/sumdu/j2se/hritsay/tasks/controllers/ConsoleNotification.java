@@ -11,18 +11,19 @@ import java.time.LocalDateTime;
 
 public class ConsoleNotification implements Notification {
     private AbstractTaskList taskList = new ArrayTaskList();
-    final static Logger logger = Logger.getLogger(ConsoleNotification.class);
+    final Logger logger = Logger.getLogger(ConsoleNotification.class);
 
     private Runnable notifySubSystem = new Runnable() {
         @Override
         public void run() throws NullPointerException {
+
             TaskIO.readText(taskList, new File(Consts.TASKS_FILE));
             while (true) {
                 try {
                     for (Task task : taskList) {
                         notifyMessage(task);
                     }
-                    Thread.sleep(60000);
+                    Thread.sleep(Consts.NOTIFY_INTERVAL);
                 } catch (InterruptedException e) {
                     logger.error("Interrupted exception in notifications.");
                 }
@@ -37,7 +38,7 @@ public class ConsoleNotification implements Notification {
     @Override
     public void notifyMessage(Task task) {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime nextPlus = now.plusMinutes(30);
+        LocalDateTime nextPlus = now.plusMinutes(Consts.MINUTES_TO_NOTIFY);
         LocalDateTime nextTimeActual = task.nextTimeAfter(now);
         NotificationMessage notificationMessage;
         if (!(nextTimeActual == null)) {

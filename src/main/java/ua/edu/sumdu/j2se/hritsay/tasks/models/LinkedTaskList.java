@@ -11,7 +11,7 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
     private Node last;
 
     public void add(Task task) {
-        if(task != null) {
+        if (task != null) {
             if (size == 0) {
                 linkFirst(task);
             } else {
@@ -101,7 +101,6 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index is incorrect");
         }
-
         return getNode(index).item;
     }
 
@@ -165,7 +164,7 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
 
     @Override
     public LinkedTaskList clone() throws CloneNotSupportedException {
-        LinkedTaskList linkedTaskList = (LinkedTaskList)super.clone();
+        LinkedTaskList linkedTaskList = (LinkedTaskList) super.clone();
         linkedTaskList.first = first.clone();
         linkedTaskList.last = last.clone();
         return linkedTaskList;
@@ -177,9 +176,11 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
         for (int i = 0; i < size; i++) {
             tasks = tasks.concat(getTask(i).toString());
         }
-        return "LinkedTaskList " +
-                "size = " + size +
-                ":  \n" + tasks;
+        return "LinkedTaskList "
+                + "size = "
+                + size
+                + ":  \n"
+                + tasks;
     }
 
     @Override
@@ -209,7 +210,7 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable, Itera
 
             @Override
             public void remove() throws IllegalStateException {
-                if(countNext == 0) {
+                if (countNext == 0) {
                     throw new IllegalStateException();
                 } else {
                     LinkedTaskList.this.remove(this.current.prev.item);

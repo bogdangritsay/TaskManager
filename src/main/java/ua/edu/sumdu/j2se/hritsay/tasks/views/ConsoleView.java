@@ -14,6 +14,7 @@ import java.util.*;
 public class ConsoleView implements View {
     private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     final static Logger logger = Logger.getLogger(ConsoleView.class);
+
     @Override
     public int removeTaskView(AbstractTaskList taskList) {
         do {
@@ -35,7 +36,7 @@ public class ConsoleView implements View {
                 System.out.println("Please enter a number!");
                 logger.info("Incorrect data entry was intercepted");
             }
-        } while(true);
+        } while (true);
     }
 
     @Override
@@ -63,18 +64,17 @@ public class ConsoleView implements View {
                     System.out.println("Please enter a number!");
                 }
             } while (true);
-
             System.out.println("Enter a title for the task: ");
             title = bufferedReader.readLine();
             System.out.println("It is repeatable task? (true or false): \n(Enter \"true\" if the task is active or something else in if it is not): ");
             isRepeatTask = Boolean.parseBoolean(bufferedReader.readLine());
-            if(isRepeatTask) {
-                    System.out.println("Enter start time:");
-                    start = readDate();
-                    System.out.println("Enter end time: ");
-                    end = readDate();
-                    System.out.println("Enter interval of repeats(in minutes): ");
-                    interval = Integer.parseInt(bufferedReader.readLine()) * 60;
+            if (isRepeatTask) {
+                System.out.println("Enter start time:");
+                start = readDate();
+                System.out.println("Enter end time: ");
+                end = readDate();
+                System.out.println("Enter interval of repeats(in minutes): ");
+                interval = Integer.parseInt(bufferedReader.readLine()) * 60;
                 addTask = new Task(taskId, title, start, end, interval, true);
             } else {
                 System.out.println("Enter time: ");
@@ -93,16 +93,14 @@ public class ConsoleView implements View {
         do {
             try {
                 Task chTask = taskList.getTask(i);
-
-                System.out.println("Choose, what you want to change: \n" +
-                        "1 - Change title \n" +
-                        "2 - Active \n" +
-                        "3 - Change time(for no repeat tasks) \n" +
-                        "4 - Change start-time (for  repeat tasks) \n" +
-                        "5 - Change end-time (for  repeat tasks) \n" +
-                        "6 - Change interval (for  repeat tasks) \n");
+                System.out.println("Choose, what you want to change: \n"
+                        + "1 - Change title \n"
+                        + "2 - Active \n"
+                        + "3 - Change time(for no repeat tasks) \n"
+                        + "4 - Change start-time (for  repeat tasks) \n"
+                        + "5 - Change end-time (for  repeat tasks) \n"
+                        + "6 - Change interval (for  repeat tasks) \n");
                 int act = Integer.parseInt(bufferedReader.readLine());
-
                 switch (act) {
                     case 1:
                         System.out.println("Enter new title for the task: \n");
@@ -151,7 +149,7 @@ public class ConsoleView implements View {
                 logger.info("Incorrect data entry was intercepted");
                 System.out.println("Please enter a number!");
             }
-        } while(true);
+        } while (true);
     }
 
     private boolean checkId(int id, AbstractTaskList taskList) {
@@ -236,19 +234,17 @@ public class ConsoleView implements View {
                 int act = -1;
                 System.out.println(
                         "\t1 - Show all task list \n"
-                                + "\t2 - Show calendar for a week \n"
-                                + "\t3 - Add new task \n"
-                                + "\t4 - Remove task \n"
-                                + "\t5 - Edit task  \n"
-                                + "\t0 - Exit");
+                        + "\t2 - Show calendar for a week \n"
+                        + "\t3 - Add new task \n"
+                        + "\t4 - Remove task \n"
+                        + "\t5 - Edit task  \n"
+                        + "\t0 - Exit");
                 act = Integer.parseInt(bufferedReader.readLine());
-
                 if (act > 5 || act < 0) {
                     System.out.println("Incorrect number!");
                 } else {
                     return act;
                 }
-
             } catch (IOException e) {
                 logger.error("Input/output exception");
             } catch (NumberFormatException e) {
@@ -261,8 +257,8 @@ public class ConsoleView implements View {
     public void showListView(AbstractTaskList taskList) {
         AbstractTaskList repeatedTasks = new ArrayTaskList();
         AbstractTaskList noRepeatedTasks = new ArrayTaskList();
-        for(Task task : taskList) {
-            if(task.isRepeated()) {
+        for (Task task : taskList) {
+            if (task.isRepeated()) {
                 repeatedTasks.add(task);
             } else {
                 noRepeatedTasks.add(task);
@@ -273,32 +269,4 @@ public class ConsoleView implements View {
         System.out.println("No Repeated tasks:");
         System.out.println(noRepeatedTasks.toString());
     }
-
-    @Override
-    public int confirmSaving() {
-        do {
-            try {
-                System.out.println("Save changes?\n 1 - Yes\n 0 - No");
-                int act = -1;
-                boolean yesOrNo = false;
-                while (!yesOrNo) {
-                    int actTmp = Integer.parseInt(bufferedReader.readLine());
-                    if (actTmp == 1 || actTmp == 0) {
-                        act = actTmp;
-                        yesOrNo = true;
-                    } else {
-                        System.out.println("Incorrect action! \nPlease choose 1 or 0.");
-                    }
-                }
-                return act;
-
-            } catch (IOException e) {
-                logger.error("Input/output exception");
-            } catch (NumberFormatException e) {
-                logger.info("Incorrect data entry was intercepted");
-                System.out.println("Please enter a number!");
-            }
-        } while (true);
-    }
-
 }

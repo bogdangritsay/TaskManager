@@ -4,8 +4,8 @@ import ua.edu.sumdu.j2se.hritsay.tasks.models.Task;
 import java.time.LocalDateTime;
 
 public class NotificationMessage {
-    Task taskForNotify;
-    LocalDateTime nextTimeActual;
+    private Task taskForNotify;
+    private LocalDateTime nextTimeActual;
 
     public NotificationMessage(Task taskForNotify, LocalDateTime nextTimeActual) {
         this.taskForNotify = taskForNotify;

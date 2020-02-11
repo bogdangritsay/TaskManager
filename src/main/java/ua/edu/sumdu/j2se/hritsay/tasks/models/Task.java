@@ -16,7 +16,6 @@ public class Task implements Cloneable, Serializable {
     private boolean isActive;
     final static Logger logger = Logger.getLogger(Task.class);
 
-
     /**
      * Constructor for non-repeatable task.
      *
@@ -280,8 +279,9 @@ public class Task implements Cloneable, Serializable {
     public Task clone()  {
         try {
             return (Task) super.clone();
-        } catch (CloneNotSupportedException e) {}
+        } catch (CloneNotSupportedException e) {
         logger.error("CloneNotSupportedException");
+        }
         return null;
     }
 

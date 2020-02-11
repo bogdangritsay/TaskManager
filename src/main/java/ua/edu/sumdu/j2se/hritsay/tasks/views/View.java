@@ -7,25 +7,23 @@ import java.time.LocalDateTime;
 
 public interface View {
 
-    public int removeTaskView(AbstractTaskList taskList);
+    int removeTaskView(AbstractTaskList taskList);
 
-    public Task addTaskView(AbstractTaskList taskList);
+    Task addTaskView(AbstractTaskList taskList);
 
-    public Task editView(AbstractTaskList taskList, int i);
+    Task editView(AbstractTaskList taskList, int i);
 
-    public void calendarView(AbstractTaskList taskList);
+    void calendarView(AbstractTaskList taskList);
 
-    public int mainMenuView();
+    int mainMenuView();
 
-    public void showListView(AbstractTaskList taskList);
+    void showListView(AbstractTaskList taskList);
 
-    public int confirmSaving();
+    int readI(AbstractTaskList taskList);
 
-    public int readI(AbstractTaskList taskList);
+    LocalDateTime readDate();
 
-    public LocalDateTime readDate();
-
-    public void hello();
+    void hello();
 
 }
 

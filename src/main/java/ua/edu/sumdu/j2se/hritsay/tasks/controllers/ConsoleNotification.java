@@ -39,15 +39,11 @@ public class ConsoleNotification implements Notification {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime nextPlus = now.plusMinutes(30);
         LocalDateTime nextTimeActual = task.nextTimeAfter(now);
+        NotificationMessage notificationMessage;
         if (!(nextTimeActual == null)) {
             if ((nextTimeActual.isBefore(nextPlus))) {
-                System.out.println("-------------------!!!NOTIFICATION!!!----------------------");
-                System.out.println("Don't forget that today at: "
-                        + nextTimeActual.getHour() + ":"
-                        + nextTimeActual.getMinute()
-                        + " you must: "
-                        + task.getTitle());
-                System.out.println("-----------------------------------------------------------");
+                notificationMessage = new NotificationMessage(task, nextTimeActual);
+                System.out.println(notificationMessage.toString());
             }
         }
     }

@@ -10,21 +10,44 @@ public interface Controller {
     int EDIT_TASK_ACTION = 5;
     int FINISH_ACTION = 0;
 
+    /**
+     * Method to process program
+     * @throws InterruptedException where thread is interrupt
+     */
     void process() throws InterruptedException;
 
+    /**
+     * Method to control adding task
+     */
     void addTaskController();
 
+    /**
+     * Method to control removing task
+     */
     void removeTaskController();
 
+    /**
+     * Method to control editing task
+     */
     void editController();
 
+    /**
+     * Method to control calendar
+     */
     void calendarController();
 
+    /**
+     * Method to control main menu
+     */
     void mainController();
 
+    /**
+     * Method to control showing list
+     */
     void showListController();
 
+    /**
+     * Method to start program
+     */
     void start();
-
-    AbstractTaskList getTaskList();
 }

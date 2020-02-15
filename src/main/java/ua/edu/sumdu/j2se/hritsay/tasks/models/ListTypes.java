@@ -5,5 +5,4 @@ public class ListTypes {
         ARRAY,
         LINKED
     }
-
 }

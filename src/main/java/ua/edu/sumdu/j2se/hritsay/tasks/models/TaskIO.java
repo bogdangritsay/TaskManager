@@ -9,6 +9,11 @@ import java.time.*;
 public class TaskIO  {
     final static Logger logger = Logger.getLogger(ConsoleController.class);
 
+    /**
+     * Method records tasks to stream from the list in binary format
+     * @param tasks task to write
+     * @param out stream to write
+     */
     public static void write(AbstractTaskList tasks, OutputStream out) {
         try (DataOutputStream oos = new DataOutputStream(out)) {
             oos.write(tasks.size());
@@ -40,6 +45,11 @@ public class TaskIO  {
 
     }
 
+    /**
+     * Method records tasks from binary stream to list
+     * @param tasks task list for write
+     * @param in stream to read
+     */
     public static void read(AbstractTaskList tasks, InputStream in) {
         try (DataInputStream dis = new DataInputStream(in)) {
             int size = dis.read();
@@ -73,6 +83,11 @@ public class TaskIO  {
         }
     }
 
+    /**
+     * Method records tasks to file from the list in binary format
+     * @param tasks task list to record
+     * @param file file te write
+     */
     public static void writeBinary(AbstractTaskList tasks, File file) {
         try (FileOutputStream fos = new FileOutputStream(file)){
             TaskIO.write(tasks, fos);
@@ -81,6 +96,11 @@ public class TaskIO  {
         }
     }
 
+    /**
+     * Method records tasks from binary file stream to list
+     * @param tasks task list for write
+     * @param file file to read
+     */
     public static void readBinary(AbstractTaskList tasks, File file) {
         try (FileInputStream fis = new FileInputStream(file)) {
             TaskIO.read(tasks, fis);
@@ -89,6 +109,11 @@ public class TaskIO  {
         }
     }
 
+    /**
+     *  Method records tasks to stream from the list in JSON format
+     * @param tasks task list to record
+     * @param out stream to write
+     */
     public static void write(AbstractTaskList tasks, Writer out) {
         try (Writer outW = out) {
             ArrayTaskList list = new ArrayTaskList();
@@ -102,6 +127,11 @@ public class TaskIO  {
         }
     }
 
+    /**
+     * Method records tasks from stream to list
+     * @param tasks task list to record
+     * @param in stream to read
+     */
     public static void read(AbstractTaskList tasks, Reader in) {
         try (Reader inR = in) {
         AbstractTaskList list;
@@ -115,6 +145,11 @@ public class TaskIO  {
         }
     }
 
+    /**
+     * Method to write tasks to file in JSON format
+     * @param tasks tasks to write
+     * @param file file to write
+     */
     public static void writeText(AbstractTaskList tasks, File file) {
         try (FileWriter fwr = new FileWriter(file)) {
             write(tasks, fwr);
@@ -123,6 +158,11 @@ public class TaskIO  {
         }
     }
 
+    /**
+     * Method records tasks from JSON file to list
+     * @param tasks task list to record
+     * @param file file to read
+     */
     public static void readText(AbstractTaskList tasks, File file) {
         try (FileReader frd = new FileReader(file)) {
             read(tasks, frd);

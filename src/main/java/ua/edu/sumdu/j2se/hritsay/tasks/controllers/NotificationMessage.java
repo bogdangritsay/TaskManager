@@ -7,6 +7,11 @@ public class NotificationMessage {
     private Task taskForNotify;
     private LocalDateTime nextTimeActual;
 
+    /**
+     * Constructor for notification message
+     * @param taskForNotify sets task for notify
+     * @param nextTimeActual sets next time for notify
+     */
     public NotificationMessage(Task taskForNotify, LocalDateTime nextTimeActual) {
         this.taskForNotify = taskForNotify;
         this.nextTimeActual = nextTimeActual;

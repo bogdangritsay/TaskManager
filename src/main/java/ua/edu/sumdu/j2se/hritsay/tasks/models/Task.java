@@ -18,7 +18,6 @@ public class Task implements Cloneable, Serializable {
 
     /**
      * Constructor for non-repeatable task.
-     *
      * @param title sets the title of a task.
      * @param time  sets the time of task execution.
      */
@@ -39,7 +38,6 @@ public class Task implements Cloneable, Serializable {
 
     /**
      * Constructor for repeatable task.
-     *
      * @param title    sets the title of a task.
      * @param start    sets starting time of task execution.
      * @param end      sets time for ending of task execution.
@@ -69,7 +67,6 @@ public class Task implements Cloneable, Serializable {
 
     /**
      * Getter for task title.
-     *
      * @return title
      */
     public String getTitle() {
@@ -96,7 +93,6 @@ public class Task implements Cloneable, Serializable {
 
     /**
      * Setter for isActive field.
-     *
      * @param active sets new activity status.
      */
     public void setActive(final boolean active) {
@@ -105,7 +101,6 @@ public class Task implements Cloneable, Serializable {
 
     /**
      * Getter for task time.
-     *
      * @return time if task is non-repeatable.
      * return start if task is repeatable.
      */
@@ -120,7 +115,6 @@ public class Task implements Cloneable, Serializable {
     /**
      * Setter for task time.
      * Converts repeatable task into a non-repeatable one.
-     *
      * @param time sets new task time.
      */
     public void setTime(final LocalDateTime time) {
@@ -135,7 +129,6 @@ public class Task implements Cloneable, Serializable {
     /**
      * Setter for task time.
      * Converts a non-repeatable task into a repeatable one.
-     *
      * @param start    sets new task start time
      * @param end      sets new task end time
      * @param interval sets new task repeat interval
@@ -150,7 +143,6 @@ public class Task implements Cloneable, Serializable {
 
     /**
      * Getter for start time of a repeatable task.
-     *
      * @return time of non-repeatable task execution.
      * return start time of repeatable task execution.
      */
@@ -191,17 +183,23 @@ public class Task implements Cloneable, Serializable {
         }
     }
 
+    /**
+     * Setter for the interval time.
+     * @param interval sets new task interval.
+     */
     public void setInterval(int interval) {
         this.interval = interval;
     }
 
+    /**
+     * Getter for id of the task.
+     *
+     * @return id of the current task
+     */
     public int getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    }
 
     /**
      * Method to check whether task is repeatable or not.
@@ -216,13 +214,12 @@ public class Task implements Cloneable, Serializable {
     /**
      * Method to get next execution time relative to given current time.
      *
-     * @return -1 if the task is not active
+     * @return null if the task is not active
      * return time If the task does not repeat
-     * return -1 If current is longer than the end time
+     * return null If current is longer than the end time
      * return start If current < start
-     * return -1 if current < 0
+     * return null if current < 0
      */
-
     public final LocalDateTime nextTimeAfter(final LocalDateTime current) {
         if (!isActive()) {
             return null;

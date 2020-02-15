@@ -4,7 +4,9 @@ package ua.edu.sumdu.j2se.hritsay.tasks.models;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
-
+/**
+ * Class for operations with linked task list
+ */
 public class LinkedTaskList extends AbstractTaskList implements Cloneable, Iterable<Task>  {
     private int size;
     private Node first;

@@ -1,5 +1,8 @@
 package ua.edu.sumdu.j2se.hritsay.tasks.models;
 
+/**
+ * Class node for the linked list
+ */
 public class Node implements Cloneable {
     Task item;
     Node next;

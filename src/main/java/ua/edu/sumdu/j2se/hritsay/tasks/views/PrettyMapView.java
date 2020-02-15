@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 
+/**
+ Pretty view for the calendar
+ */
 public class PrettyMapView {
     /**
      * Method to pretty view of the map

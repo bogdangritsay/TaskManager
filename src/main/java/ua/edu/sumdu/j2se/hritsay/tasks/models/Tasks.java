@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Class for operations with tasks.
+ */
 public class Tasks {
 
     /**

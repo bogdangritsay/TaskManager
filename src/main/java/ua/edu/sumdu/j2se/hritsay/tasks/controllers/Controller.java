@@ -2,6 +2,9 @@ package ua.edu.sumdu.j2se.hritsay.tasks.controllers;
 
 import ua.edu.sumdu.j2se.hritsay.tasks.models.AbstractTaskList;
 
+/**
+ * Controller for the program
+ */
 public interface Controller {
     int SHOW_LIST_ACTION = 1;
     int CALENDAR_TASK_ACTION = 2;

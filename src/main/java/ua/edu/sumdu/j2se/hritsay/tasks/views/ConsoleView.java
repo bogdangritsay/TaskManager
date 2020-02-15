@@ -11,6 +11,9 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * View for the console program
+ */
 public class ConsoleView implements View {
     private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     final static Logger logger = Logger.getLogger(ConsoleView.class);

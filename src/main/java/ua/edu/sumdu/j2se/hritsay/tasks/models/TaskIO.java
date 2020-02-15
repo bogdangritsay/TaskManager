@@ -6,6 +6,9 @@ import ua.edu.sumdu.j2se.hritsay.tasks.controllers.ConsoleController;
 import java.io.*;
 import java.time.*;
 
+/**
+ * Class for working with input/output of task lists.
+ */
 public class TaskIO  {
     final static Logger logger = Logger.getLogger(ConsoleController.class);
 

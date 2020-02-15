@@ -1,5 +1,6 @@
 package ua.edu.sumdu.j2se.hritsay.tasks.models;
 
+
 public class TaskListFactory<Task> {
 
     /**

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-
+/**
+ * Class for task list
+ */
 public abstract class AbstractTaskList implements Iterable<Task>, Serializable {
 
     /**

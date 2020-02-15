@@ -9,6 +9,11 @@ import java.util.Set;
 import java.util.SortedMap;
 
 public class PrettyMapView {
+    /**
+     * Method to pretty view of the map
+     * @param map map to pretty view
+     * @return pretty transformed map in string
+     */
     static public String prettyMap(SortedMap<LocalDateTime, Set<Task>> map) {
         StringBuilder sb = new StringBuilder();
         Iterator<Map.Entry<LocalDateTime, Set<Task>>> iter = map.entrySet().iterator();

@@ -220,8 +220,6 @@ public class ConsoleView implements View {
         System.out.println(PrettyMapView.prettyMap(Tasks.calendar(taskList, LocalDateTime.now(), LocalDateTime.now().plusDays(7))));
     }
 
-
-
     public void hello() {
         System.out.println("Hello. I'm your Task Manager!");
     }

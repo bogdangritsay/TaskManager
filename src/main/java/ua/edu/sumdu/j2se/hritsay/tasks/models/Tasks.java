@@ -6,6 +6,13 @@ import java.util.stream.Collectors;
 
 public class Tasks {
 
+    /**
+     * Method to get task list with time incoming in diapason
+     * @param tasks task list to analise
+     * @param from start time of diapason
+     * @param to end time of diapason
+     * @return task list of incoming tasks
+     */
     public static Iterable<Task> incoming(Iterable<Task> tasks, LocalDateTime from, LocalDateTime to) {
         ArrayTaskList selected = new ArrayTaskList();
 
@@ -19,6 +26,13 @@ public class Tasks {
         return selected;
     }
 
+    /**
+     * Method to get calendar of tasks
+     * @param tasks task list to analise
+     * @param start start time of diapason
+     * @param end end time of diapason
+     * @return sorted calendar of the tasks
+     */
     public static SortedMap<LocalDateTime, Set<Task>> calendar(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end) {
         SortedMap<LocalDateTime, Set<Task>> calendar = new TreeMap<>();
         Iterable<Task> taskList = Tasks.incoming(tasks, start, end);

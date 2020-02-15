@@ -14,13 +14,12 @@ public class ConsoleController implements Controller {
     private AbstractTaskList taskList = new ArrayTaskList();
     private final static Logger logger = Logger.getLogger(ConsoleController.class);
 
+    /**
+     * Constructor for console controller
+     * @param view view for controller
+     */
     public ConsoleController(View view) {
         this.view = view;
-    }
-
-    @Override
-    public AbstractTaskList getTaskList() {
-        return taskList;
     }
 
     @Override

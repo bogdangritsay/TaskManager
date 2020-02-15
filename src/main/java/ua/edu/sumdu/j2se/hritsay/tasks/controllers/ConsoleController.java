@@ -9,6 +9,9 @@ import ua.edu.sumdu.j2se.hritsay.tasks.models.TaskIO;
 
 import java.io.File;
 
+/**
+ * Controller for the work with console
+ */
 public class ConsoleController implements Controller {
     private View view;
     private AbstractTaskList taskList = new ArrayTaskList();

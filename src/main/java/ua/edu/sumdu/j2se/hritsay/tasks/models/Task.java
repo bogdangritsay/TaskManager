@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Class for operations with task
+ */
 public class Task implements Cloneable, Serializable {
     private int taskId;
     private String title;

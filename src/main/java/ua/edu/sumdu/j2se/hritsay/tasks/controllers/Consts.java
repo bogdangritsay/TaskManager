@@ -1,5 +1,8 @@
 package ua.edu.sumdu.j2se.hritsay.tasks.controllers;
 
+/**
+ * Constants which uses in program
+ */
 public class Consts {
     public static final String TASKS_FILE = "tasklist.json";
     public static final int NOTIFY_INTERVAL = 60000;

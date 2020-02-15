@@ -9,6 +9,9 @@ import ua.edu.sumdu.j2se.hritsay.tasks.models.TaskIO;
 import java.io.File;
 import java.time.LocalDateTime;
 
+/**
+ * Notifications in console environments
+ */
 public class ConsoleNotification implements Notification {
     private AbstractTaskList taskList = new ArrayTaskList();
     final Logger logger = Logger.getLogger(ConsoleNotification.class);

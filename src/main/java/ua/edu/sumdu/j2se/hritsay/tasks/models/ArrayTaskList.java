@@ -6,7 +6,9 @@ import java.util.Objects;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-
+/**
+ * Class for operations with array task list
+ */
 public class ArrayTaskList extends AbstractTaskList  implements Cloneable, Iterable<Task> {
     private int size;
     private int capacity;

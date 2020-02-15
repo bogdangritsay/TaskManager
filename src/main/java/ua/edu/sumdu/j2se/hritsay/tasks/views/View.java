@@ -5,6 +5,9 @@ import ua.edu.sumdu.j2se.hritsay.tasks.models.Task;
 
 import java.time.LocalDateTime;
 
+/**
+ * View for the program
+ */
 public interface View {
 
     /**

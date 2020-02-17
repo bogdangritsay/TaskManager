@@ -69,10 +69,18 @@ public class ConsoleView implements View {
             System.out.println("It is repeatable task? (true or false): \n(Enter \"true\" if the task is active or something else in if it is not): ");
             isRepeatTask = Boolean.parseBoolean(bufferedReader.readLine());
             if (isRepeatTask) {
-                System.out.println("Enter start time:");
-                start = readDate();
-                System.out.println("Enter end time: ");
-                end = readDate();
+                while(true) {
+                    System.out.println("Enter start time:");
+                    start = readDate();
+                    System.out.println("Enter end time: ");
+                    end = readDate();
+                    if(start.equals(end) || start.isAfter(end)) {
+                        System.out.println("Start is after end!");
+                    } else {
+                        break;
+                    }
+                }
+
                 System.out.println("Enter interval of repeats(in minutes): ");
                 interval = Integer.parseInt(bufferedReader.readLine()) * 60;
                 addTask = new Task(taskId, title, start, end, interval, true);

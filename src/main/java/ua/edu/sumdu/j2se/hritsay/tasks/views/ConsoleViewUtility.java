@@ -11,7 +11,7 @@ import java.util.SortedMap;
 /**
  Pretty view for the calendar
  */
-public class PrettyMapView {
+public class ConsoleViewUtility {
     /**
      * Method to pretty view of the map
      * @param map map to pretty view

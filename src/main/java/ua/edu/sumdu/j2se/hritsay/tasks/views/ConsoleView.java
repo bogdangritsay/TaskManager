@@ -80,9 +80,16 @@ public class ConsoleView implements View {
                         break;
                     }
                 }
-
-                System.out.println("Enter interval of repeats(in minutes): ");
-                interval = Integer.parseInt(bufferedReader.readLine()) * 60;
+                do {
+                    try {
+                        System.out.println("Enter interval of repeats(in minutes): ");
+                        interval = Integer.parseInt(bufferedReader.readLine()) * 60;
+                        break;
+                    } catch (NumberFormatException e) {
+                        logger.info("Incorrect data entry was intercepted");
+                        System.out.println("Please enter a number!");
+                    }
+                } while (true);
                 addTask = new Task(taskId, title, start, end, interval, true);
             } else {
                 System.out.println("Enter time: ");

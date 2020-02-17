@@ -53,20 +53,17 @@ public class ConsoleView implements View {
         int interval;
         boolean isRepeatTask;
         try {
-            do {
-                try {
-                    System.out.println("Enter an ID for the task:");
-                    taskId = Integer.parseInt(bufferedReader.readLine());
-                    if (checkId(taskId, taskList)) {
-                        System.out.println("A task with such an ID is already on the list.");
-                    } else {
-                        break;
-                    }
-                } catch (NumberFormatException e) {
-                    logger.info("Incorrect data entry was intercepted");
-                    System.out.println("Please enter a number!");
+            if (taskList.size() == 0) {
+                taskId = 1;
+            } else {
+                int max = taskList.getTask(0).getTaskId();
+                for (int i = 0; i < taskList.size(); i++) {
+                   if(taskList.getTask(i).getTaskId() > max) {
+                       max = taskList.getTask(i).getTaskId();
+                   }
                 }
-            } while (true);
+                taskId = max + 1;
+            }
             System.out.println("Enter a title for the task: ");
             title = bufferedReader.readLine();
             System.out.println("It is repeatable task? (true or false): \n(Enter \"true\" if the task is active or something else in if it is not): ");
@@ -177,7 +174,6 @@ public class ConsoleView implements View {
                     }
                 }
                 System.out.println("This task is not found!");
-
             } catch (IOException e) {
                 logger.info("Input/output exception");
                 e.printStackTrace();

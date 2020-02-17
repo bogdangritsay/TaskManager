@@ -9,7 +9,6 @@ import ua.edu.sumdu.j2se.hritsay.tasks.models.Tasks;
 import java.io.*;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.*;
 
 /**
  * View for the console program
@@ -231,7 +230,7 @@ public class ConsoleView implements View {
     @Override
     public void calendarView(AbstractTaskList taskList) {
         System.out.println("Calendar for 7 days: ");
-        System.out.println(PrettyMapView.prettyMap(Tasks.calendar(taskList, LocalDateTime.now(), LocalDateTime.now().plusDays(7))));
+        System.out.println(ConsoleViewUtility.prettyMap(Tasks.calendar(taskList, LocalDateTime.now(), LocalDateTime.now().plusDays(7))));
     }
 
     public void hello() {
